@@ -119,6 +119,7 @@ export default class App extends Component{
         transition:'all 0.5s ease-in-out',
         transformStyle:'preserve-3d',
         position:'relative',
+        // position:'absolute',
         display:'grid',
         transformOrigin:'75px 75px -75px',
         transform:`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
@@ -303,6 +304,10 @@ export default class App extends Component{
 
         document.querySelector('#backWall').style.transform+='rotateX(-90deg)';
         document.querySelector('#botWall').style.transform+='rotateX(-90deg)';
+
+        // document.querySelectorAll('.top')[0].style.transform+='rotateX(-90deg)';
+        // document.querySelectorAll('.top')[1].style.transform+='rotateX(-90deg)';
+        // document.querySelectorAll('.top')[2].style.transform+='rotateX(-90deg)';
       }
 
       animateTop()
@@ -331,8 +336,9 @@ export default class App extends Component{
         this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
 
 
+      // },200);
       },1000);
-    }
+  }
     return(
       <div id="App" style={styles.App}>
         <div id="fullCube" style={styles.fullCube} ref={cube}>

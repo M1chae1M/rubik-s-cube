@@ -10,6 +10,7 @@ export default class Side extends Component{
         // transition:'all 0.8s ease-in-out',
         transformStyle:'preserve-3d',
         position:'absolute',
+        // position:'relative',
         width:'50px',
         height:'50px',
         color:'green',
