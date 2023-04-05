@@ -9,14 +9,18 @@ export default class Side extends Component{
         transition:'all 0.5s ease-in-out',
         // transition:'all 0.8s ease-in-out',
         transformStyle:'preserve-3d',
-        position:'absolute',
+        // position:'absolute',
         // position:'relative',
         width:'50px',
         height:'50px',
         color:'green',
-        transform:`rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateX(${X}px) translateY(${Y}px)`,
-        transformOrigin:'75px 75px -75px',
+        // transform:`rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateX(${X}px) translateY(${Y}px)`,
+        transform:`rotateY(${0}deg) rotateX(${0}deg) translateX(${0}px) translateY(${0}px)`,
+        // transformOrigin:'75px 75px -75px',
+        // transformOrigin:'150% 150% -75px',
+        // transformOrigin:this.props.cubeOrigin,
         display:'grid',
+        // gridTemplateColumns:'1fr 1fr 1fr',
         justifyItems:'center',
         alignItems:'center',
         userSelect:'none',
@@ -29,18 +33,8 @@ export default class Side extends Component{
         const bgColor=colors?.[children?.[idx]?.[i]];
 
         return(
-          <div style={{...styles.Side, backgroundColor:bgColor}}
-          // className={`${cubeState.front.true?.[idx]?.[i]}`}
-          // className={`${cubeState?.[children?.[idx]?.[i]]}`}
-          className={children[idx][i]}
-          >
-            {/* {console.log(children?.[idx]?.[i])} */}
-            {/* {console.log(cubeState?.[children?.[idx]?.[i]]?.[idx]?.[i])} */}
-            {/* {console.log(children[idx][i])} */}
-            {/* {console.log(cubeState?.[children])} */}
-            {/* {cubeState?.[children]} */}
+          <div style={{...styles.Side, backgroundColor:bgColor}} className={children[idx][i]}>
             {children[idx][i]}
-            {/* {console.log(cubeState?.[children?.[idx]?.[i]])} */}
           </div>
         )
       }}

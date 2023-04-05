@@ -126,6 +126,9 @@ export default class App extends Component{
         transition:'all ease-in-out 0.7s',
         width:'150px',
         height:'150px',
+
+        // gridTemplateColumns:'50px 50px 50px',
+        // gridTemplateRows:'50px 50px 50px',
       },
       rotateButton:{
         position:'absolute',
@@ -139,6 +142,9 @@ export default class App extends Component{
         position:'relative',
         position:'absolute',
         display:'grid',
+        gridTemplateColumns:'50px 50px 50px',
+        gridTemplateRows:'50px 50px 50px',
+
         height:'150px',
         width:'150px',
         // backgroundColor:'grey',
@@ -298,19 +304,127 @@ export default class App extends Component{
     }
     const spinVerticalZ=(column)=>{
 
-      const animateTop=()=>{
-        document.querySelector('#topWall').style.transform+='rotateX(-90deg)';
-        document.querySelector('#frontWall').style.transform+='rotateX(-90deg)';
+      const animateTop=(column)=>{
+        // document.querySelector('#topWall').style.transform+='rotateX(-90deg)';
+        // document.querySelector('#frontWall').style.transform+='rotateX(-90deg)';
 
-        document.querySelector('#backWall').style.transform+='rotateX(-90deg)';
-        document.querySelector('#botWall').style.transform+='rotateX(-90deg)';
+        // document.querySelector('#backWall').style.transform+='rotateX(-90deg)';
+        // document.querySelector('#botWall').style.transform+='rotateX(-90deg)';
+        // document.querySelector('#leftWall').style.transform+='rotateX(-90deg)';
+        // document.querySelector('#rightWall').style.transform+='rotateX(-90deg)';
 
-        // document.querySelectorAll('.top')[0].style.transform+='rotateX(-90deg)';
-        // document.querySelectorAll('.top')[1].style.transform+='rotateX(-90deg)';
-        // document.querySelectorAll('.top')[2].style.transform+='rotateX(-90deg)';
+
+
+        if(column===10){
+
+
+        let stylecopy1=JSONcopy(document.querySelectorAll('.top')[0].style)
+        let stylecopy2=JSONcopy(document.querySelectorAll('.top')[3].style)
+        let stylecopy3=JSONcopy(document.querySelectorAll('.top')[6].style)
+
+          document.querySelectorAll('.top')[0].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+          document.querySelectorAll('.top')[3].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+          document.querySelectorAll('.top')[6].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+
+
+
+                  setTimeout(()=>{
+          document.querySelectorAll('.top')[0].style=stylecopy1;
+          document.querySelectorAll('.top')[3].style=stylecopy2;
+          document.querySelectorAll('.top')[6].style=stylecopy3;
+        },1000)
+        }
+        else if(column===11){
+
+
+        let stylecopy1=JSONcopy(document.querySelectorAll('.top')[1].style)
+        let stylecopy2=JSONcopy(document.querySelectorAll('.top')[4].style)
+        let stylecopy3=JSONcopy(document.querySelectorAll('.top')[7].style)
+
+        document.querySelectorAll('.top')[1].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        document.querySelectorAll('.top')[4].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        document.querySelectorAll('.top')[7].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+
+
+        setTimeout(()=>{
+          document.querySelectorAll('.top')[1].style=stylecopy1;
+          document.querySelectorAll('.top')[4].style=stylecopy2;
+          document.querySelectorAll('.top')[7].style=stylecopy3;
+        },1000)
+
+
+        }
+        else if(column===12){
+
+
+        let stylecopy1=JSONcopy(document.querySelectorAll('.top')[2].style)
+        let stylecopy2=JSONcopy(document.querySelectorAll('.top')[5].style)
+        let stylecopy3=JSONcopy(document.querySelectorAll('.top')[8].style)
+
+        document.querySelectorAll('.top')[2].style.transform='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        document.querySelectorAll('.top')[5].style.transform='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        document.querySelectorAll('.top')[8].style.transform='rotateX(-90deg) translateZ(25px) translateY(125px)';
+
+
+
+        setTimeout(()=>{
+          document.querySelectorAll('.top')[2].style=stylecopy1;
+          document.querySelectorAll('.top')[5].style=stylecopy2;
+          document.querySelectorAll('.top')[8].style=stylecopy3;
+        },1000)
+
+
+
+        }
+
+
+
+
+
+        // ----------------------------
+
+        // document.querySelectorAll('.back')[0].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.back')[1].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.back')[2].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+
+        // document.querySelectorAll('.back')[3].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.back')[4].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.back')[5].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+
+        // document.querySelectorAll('.back')[6].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.back')[7].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.back')[8].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+
+
+        // ----------------------------
+
+        // document.querySelectorAll('.bot')[0].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.bot')[1].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.bot')[2].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+
+        // document.querySelectorAll('.bot')[3].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.bot')[4].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.bot')[5].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+
+        // document.querySelectorAll('.bot')[6].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.bot')[7].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.bot')[8].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+
+        // ----------------------------
+
+        // document.querySelectorAll('.front')[0].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.front')[1].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+        // document.querySelectorAll('.front')[2].style.transform+='rotateX(-90deg) translateZ(125px) translateY(25px)';
+
+        // document.querySelectorAll('.front')[3].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.front')[4].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+        // document.querySelectorAll('.front')[5].style.transform+='rotateX(-90deg) translateZ(75px) translateY(75px)';
+
+        // document.querySelectorAll('.front')[6].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.front')[7].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
+        // document.querySelectorAll('.front')[8].style.transform+='rotateX(-90deg) translateZ(25px) translateY(125px)';
       }
 
-      animateTop()
 
       setTimeout(()=>{
         const temp={
@@ -337,7 +451,9 @@ export default class App extends Component{
 
 
       // },200);
-      },1000);
+      },1500);
+      // animateTop(column)
+
   }
     return(
       <div id="App" style={styles.App}>
@@ -345,36 +461,32 @@ export default class App extends Component{
           <ColorProv.Provider value={{colors, cubeState, cubeNames}}>
             {moved.map((x, i)=>moved.map((y, idx)=>
             <Fragment key={`${idx}${i}`}>
-{/* <Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side> */}
+{/* <Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
 
 <Side key={`left${idx}${i}`} rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
 
-{/* <Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side> */}
+<Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
 
 <Side key={`right${idx}${i}`} rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
 
-{/* <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side> */}
+<Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
 
-{/* <Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side> */}
+<Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side> */}
             </Fragment>
             ))}
-<div id="topWall" style={styles.topWall}>
+<div id="topWall" style={{...styles.topWall, transform:'rotateX(90deg)'}}>
   {moved.map((x, i)=>moved.map((y, idx)=>{
     return <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
   }))}
 </div>
 
-<div id="frontWall" style={{...styles.topWall
-  // , transform:'translateY(-150px)'
-  }}>
+<div id="frontWall" style={{...styles.topWall}}>
   {moved.map((x, i)=>moved.map((y, idx)=>{
     return <Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
   }))}
 </div>
 
-<div id="backWall" style={{...styles.topWall
-  // , transform:'translateY(-300px)'
-  }}>
+<div id="backWall" style={{...styles.topWall, transform:'rotateX(180deg)'}}>
   {moved.map((x, i)=>moved.map((y, idx)=>{
     return <Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
   }))}
@@ -382,16 +494,24 @@ export default class App extends Component{
 
 
 
-<div id="botWall" style={{...styles.topWall
-  // , transform:'translateY(-450px)'
-  }}>
+<div id="botWall" style={{...styles.topWall, transform:'rotateX(270deg)'}}>
   {moved.map((x, i)=>moved.map((y, idx)=>{
     return <Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
   }))}
 </div>
 
+<div id="leftWall" style={{...styles.topWall, transform:'rotateY(270deg)'}}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`left${idx}${i}`} rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
+  }))}
+</div>
 
-            
+<div id="rightWall" style={{...styles.topWall, transform:'rotateY(90deg)'}}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`right${idx}${i}`} rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
+  }))}
+</div>
+
 
 
           </ColorProv.Provider>
