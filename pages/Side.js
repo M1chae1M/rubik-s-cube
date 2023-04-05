@@ -7,6 +7,7 @@ export default class Side extends Component{
     const styles={
       Side:{
         transition:'all 0.5s ease-in-out',
+        // transition:'all 0.8s ease-in-out',
         transformStyle:'preserve-3d',
         position:'absolute',
         width:'50px',
@@ -29,8 +30,15 @@ export default class Side extends Component{
         return(
           <div style={{...styles.Side, backgroundColor:bgColor}}
           // className={`${cubeState.front.true?.[idx]?.[i]}`}
+          // className={`${cubeState?.[children?.[idx]?.[i]]}`}
           >
-            {children?.[idx]?.[i]}
+            {/* {console.log(children?.[idx]?.[i])} */}
+            {/* {console.log(cubeState?.[children?.[idx]?.[i]]?.[idx]?.[i])} */}
+            {/* {console.log(children[idx][i])} */}
+            {/* {console.log(cubeState?.[children])} */}
+            {/* {cubeState?.[children]} */}
+            {children[idx][i]}
+            {/* {console.log(cubeState?.[children?.[idx]?.[i]])} */}
           </div>
         )
       }}

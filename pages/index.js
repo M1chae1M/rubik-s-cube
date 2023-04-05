@@ -283,27 +283,38 @@ export default class App extends Component{
       this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
     }
     const spinVerticalZ=(column)=>{
-      const temp={
-        top:[...rotateLeft(JSONcopy(copyOf.top.true))[column]],
-        bot:[...rotateLeft(JSONcopy(copyOf.top.false))[column]],
-        front:[...rotateLeft(JSONcopy(copyOf.front.true))[column]],
-        back:[...rotateRight(JSONcopy(copyOf.front.false))[column]],
-      }
-      // top from back
-      copyOf.top.true=fromTo(temp.back, copyOf.top.true, column);
-      // front from top
-      copyOf.front.true=fromTo(temp.top, copyOf.front.true, column);
-      // bot from front
-      copyOf.top.false=fromTo(temp.front, copyOf.top.false, column);
-      // back from bot
-      copyOf.front.false=rotateRight(copyOf.front.false);
-      copyOf.front.false[column]=temp.bot;
-      copyOf.front.false=rotateLeft(copyOf.front.false);
 
-      if(column===0) copyOf.left.true=rotateLeft(copyOf.left.true)
-      else if(column===2) copyOf.left.false=rotateRight(copyOf.left.false)
 
-      this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
+
+      // setTimeout(()=>{
+        const temp={
+          top:[...rotateLeft(JSONcopy(copyOf.top.true))[column]],
+          bot:[...rotateLeft(JSONcopy(copyOf.top.false))[column]],
+          front:[...rotateLeft(JSONcopy(copyOf.front.true))[column]],
+          back:[...rotateRight(JSONcopy(copyOf.front.false))[column]],
+        }
+        // top from back
+        copyOf.top.true=fromTo(temp.back, copyOf.top.true, column);
+        // front from top
+        copyOf.front.true=fromTo(temp.top, copyOf.front.true, column);
+        // bot from front
+        copyOf.top.false=fromTo(temp.front, copyOf.top.false, column);
+        // back from bot
+        copyOf.front.false=rotateRight(copyOf.front.false);
+        copyOf.front.false[column]=temp.bot;
+        copyOf.front.false=rotateLeft(copyOf.front.false);
+  
+        if(column===0) copyOf.left.true=rotateLeft(copyOf.left.true)
+        else if(column===2) copyOf.left.false=rotateRight(copyOf.left.false)
+  
+        this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
+
+        Array.from(document.querySelectorAll('.top')).map((x,i)=>{
+          // console.log(x)
+          // x.style.transform+='translateX(0px)';
+          x.style.transform+='rotateX(-90deg)';
+        });
+      // },1000);
     }
     return(
       <div id="App" style={styles.App}>
