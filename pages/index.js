@@ -136,7 +136,11 @@ export default class App extends Component{
         transition:'all 0.5s ease-in-out',
         transformStyle:'preserve-3d',
         position:'relative',
-        // display:'grid',
+        position:'absolute',
+        display:'grid',
+        height:'150px',
+        width:'150px',
+        // backgroundColor:'grey',
       }
     }
     function rotateLeft(matrix) {
@@ -294,30 +298,16 @@ export default class App extends Component{
     const spinVerticalZ=(column)=>{
 
       const animateTop=()=>{
-        document.querySelector('#topWall').style.transform='rotateX(-90deg)'
+        document.querySelector('#topWall').style.transform+='rotateX(-90deg)';
+        document.querySelector('#frontWall').style.transform+='rotateX(-90deg)';
 
-        // Array.from(cube.current.children).map(x=>{
-        //   if(x.className==='top'){
-        //     // console.log(x.style.transform);
-        //     // x.style.transformOrigin='center center center';
-        //     x.style.transform+='rotateX(-90deg)';
-        //   }
-        // }
-        // )
-
-
-        // return(
-          // Array.from(document.querySelectorAll('.top')).map((x,i)=>{
-            // console.log(x)
-            // x.style.transform+='translateX(0px)';
-            // x.style.transformOrigin='';
-            // x.style.transform+='rotateX(-90deg)';
-          // })
-        // )
+        document.querySelector('#backWall').style.transform+='rotateX(-90deg)';
+        document.querySelector('#botWall').style.transform+='rotateX(-90deg)';
       }
 
       animateTop()
-      // setTimeout(()=>{
+
+      setTimeout(()=>{
         const temp={
           top:[...rotateLeft(JSONcopy(copyOf.top.true))[column]],
           bot:[...rotateLeft(JSONcopy(copyOf.top.false))[column]],
@@ -340,9 +330,8 @@ export default class App extends Component{
   
         this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
 
-        // animateTop();
 
-      // },1000);
+      },1000);
     }
     return(
       <div id="App" style={styles.App}>
@@ -350,25 +339,53 @@ export default class App extends Component{
           <ColorProv.Provider value={{colors, cubeState, cubeNames}}>
             {moved.map((x, i)=>moved.map((y, idx)=>
             <Fragment key={`${idx}${i}`}>
-<Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
+{/* <Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side> */}
 
 <Side key={`left${idx}${i}`} rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
 
-<Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
+{/* <Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side> */}
 
 <Side key={`right${idx}${i}`} rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
 
+{/* <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side> */}
 
-<Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
+{/* <Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side> */}
             </Fragment>
             ))}
-            <div id="topWall" style={styles.topWall}>
+<div id="topWall" style={styles.topWall}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+  }))}
+</div>
 
-{moved.map((x, i)=>moved.map((y, idx)=>{
-  return <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+<div id="frontWall" style={{...styles.topWall
+  // , transform:'translateY(-150px)'
+  }}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`front${idx}${i}`} rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
+  }))}
+</div>
 
-}))}
-            </div>
+<div id="backWall" style={{...styles.topWall
+  // , transform:'translateY(-300px)'
+  }}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`back${idx}${i}`} rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
+  }))}
+</div>
+
+
+
+<div id="botWall" style={{...styles.topWall
+  // , transform:'translateY(-450px)'
+  }}>
+  {moved.map((x, i)=>moved.map((y, idx)=>{
+    return <Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
+  }))}
+</div>
+
+
+            
 
 
           </ColorProv.Provider>
