@@ -327,8 +327,8 @@ export default class App extends Component{
           </ColorProv.Provider>
         </div>
         <div style={styles.rotateButton}>
-          <input type="button" value='+90X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
-          <input type="button" value='+90Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>
+          <input type="button" value='+45X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
+          <input type="button" value='+45Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>
           spin horisontal:
           <input type="button" value='0' onClick={()=>{spinHorisontal(0)}}/>
           <input type="button" value='1' onClick={()=>{spinHorisontal(1)}}/>
