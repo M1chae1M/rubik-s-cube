@@ -3,6 +3,8 @@ import Side from "./Side";
 
 export const ColorProv=React.createContext();
 
+const cube=React.createRef();
+
 const cubeNames={
   front:{true:'front',false:'back'},
   top:{true:'top',false:'bot'},
@@ -129,6 +131,13 @@ export default class App extends Component{
         top:'0%',
         right:'0%',
       },
+      topWall:{
+        transformOrigin:'75px 75px -75px',
+        transition:'all 0.5s ease-in-out',
+        transformStyle:'preserve-3d',
+        position:'relative',
+        // display:'grid',
+      }
     }
     function rotateLeft(matrix) {
       const transposedMatrix = transpose(matrix);
@@ -284,8 +293,30 @@ export default class App extends Component{
     }
     const spinVerticalZ=(column)=>{
 
+      const animateTop=()=>{
+        document.querySelector('#topWall').style.transform='rotateX(-90deg)'
+
+        // Array.from(cube.current.children).map(x=>{
+        //   if(x.className==='top'){
+        //     // console.log(x.style.transform);
+        //     // x.style.transformOrigin='center center center';
+        //     x.style.transform+='rotateX(-90deg)';
+        //   }
+        // }
+        // )
 
 
+        // return(
+          // Array.from(document.querySelectorAll('.top')).map((x,i)=>{
+            // console.log(x)
+            // x.style.transform+='translateX(0px)';
+            // x.style.transformOrigin='';
+            // x.style.transform+='rotateX(-90deg)';
+          // })
+        // )
+      }
+
+      animateTop()
       // setTimeout(()=>{
         const temp={
           top:[...rotateLeft(JSONcopy(copyOf.top.true))[column]],
@@ -309,16 +340,13 @@ export default class App extends Component{
   
         this.setState({cubeState:copyOf}, this.isMixed(this, copyOf));
 
-        Array.from(document.querySelectorAll('.top')).map((x,i)=>{
-          // console.log(x)
-          // x.style.transform+='translateX(0px)';
-          x.style.transform+='rotateX(-90deg)';
-        });
+        // animateTop();
+
       // },1000);
     }
     return(
       <div id="App" style={styles.App}>
-        <div id="fullCube" style={styles.fullCube}>
+        <div id="fullCube" style={styles.fullCube} ref={cube}>
           <ColorProv.Provider value={{colors, cubeState, cubeNames}}>
             {moved.map((x, i)=>moved.map((y, idx)=>
             <Fragment key={`${idx}${i}`}>
@@ -330,13 +358,25 @@ export default class App extends Component{
 
 <Side key={`right${idx}${i}`} rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
 
-<Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
 
 <Side key={`bot${idx}${i}`} rotateX={-90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
             </Fragment>
             ))}
+            <div id="topWall" style={styles.topWall}>
+
+{moved.map((x, i)=>moved.map((y, idx)=>{
+  return <Side key={`top${idx}${i}`} rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+
+}))}
+            </div>
+
+
           </ColorProv.Provider>
+
+
         </div>
+
+        
         <div style={styles.rotateButton}>
           <input type="button" value='+45X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
           <input type="button" value='+45Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>

@@ -31,6 +31,7 @@ export default class Side extends Component{
           <div style={{...styles.Side, backgroundColor:bgColor}}
           // className={`${cubeState.front.true?.[idx]?.[i]}`}
           // className={`${cubeState?.[children?.[idx]?.[i]]}`}
+          className={children[idx][i]}
           >
             {/* {console.log(children?.[idx]?.[i])} */}
             {/* {console.log(cubeState?.[children?.[idx]?.[i]]?.[idx]?.[i])} */}
