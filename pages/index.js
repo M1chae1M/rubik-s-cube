@@ -136,52 +136,55 @@ export default class App extends Component{
           rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
   
           if(name==='left'){
-            // changeTransition(name,o1,o2,o3);
+            changeTransition(name,o1,o2,o3);
 
-            // newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
-            // newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
-            // newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+            queryName[o1].style.transform+=`rotateY(-90deg)`;
+            queryName[o2].style.transform+=`rotateY(-90deg) translateX(50px) translateZ(50px)`;
+            queryName[o3].style.transform+=`rotateY(-90deg) translateX(100px) translateZ(100px)`;
           }
           else if(name==='right'){
-            // changeTransition(name,o1,o2,o3);
+            changeTransition(name,o1,o2,o3);
 
-            // newStyles(o1,` translateX(${move}px) translateY(0px) rotateX(${parseInt(deg.o1)-90}deg)`);
-            // newStyles(o2,` translateX(${move}px) translateY(-50px) rotateX(${parseInt(deg.o2)-90}deg)`);
-            // newStyles(o3,` translateX(${move}px) translateY(-100px) rotateX(${parseInt(deg.o3)-90}deg)`);
+            queryName[o1].style.transform+=`rotateY(-90deg)`;
+            queryName[o2].style.transform+=`rotateY(-90deg) translateX(50px) translateZ(50px)`;
+            queryName[o3].style.transform+=`rotateY(-90deg) translateX(100px) translateZ(100px)`;
           }
           else if(name==='front'){
-            // changeTransition(name,o1,o2,o3);
+            changeTransition(name,o1,o2,o3);
 
-            // newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px) translateY(0px)`);
-            // newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
-            // newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+            queryName[o1].style.transform=`rotateY(-90deg) translateY(${move}px)`;
+            queryName[o2].style.transform=`rotateY(-90deg) translateY(${move}px) translateX(50px)`;
+            queryName[o3].style.transform=`rotateY(-90deg) translateY(${move}px) translateX(100px)`;
           }
           else if(name==='back'){
-            // changeTransition(name,o1,o2,o3);
+            changeTransition(name,o1,o2,o3);
 
-            // queryName[o1].style.transform+=`rotateX(${parseInt(deg.o1)+90}deg)`;
-            // queryName[o2].style.transform+=`rotateX(${parseInt(deg.o2)+90}deg) translateY(50px) translateZ(50px)`;
-            // queryName[o3].style.transform+=`rotateX(${parseInt(deg.o3)+90}deg) translateY(100px) translateZ(100px)`;
+            queryName[o1].style.transform=`rotateY(-270deg) translateY(${move}px)`;
+            queryName[o2].style.transform=`rotateY(-270deg) translateY(${move}px) translateX(50px)`;
+            queryName[o3].style.transform=`rotateY(-270deg) translateY(${move}px) translateX(100px)`;
           }
         }
   
         if(row===0){
-          // coreAnimation('top',0,0,1,2)
-          // coreAnimation('bot',0,0,1,2);
-          // coreAnimation('front',0,0,1,2);
-          // coreAnimation('back',0,6,7,8);
+
+          coreAnimation('left',0,0,3,6)
+          coreAnimation('right',0,0,3,6)
+          coreAnimation('front',0,0,3,6);
+          coreAnimation('back',0,0,3,6);
         }
         else if(row===1){
-          // coreAnimation('top',50,3,4,5);
-          // coreAnimation('bot',50,3,4,5);
-          // coreAnimation('front',50,3,4,5);
-          // coreAnimation('back',0,3,4,5);
+
+          coreAnimation('left',50,1,4,7);
+          coreAnimation('right',50,1,4,7);
+          coreAnimation('front',50,1,4,7);
+          coreAnimation('back',50,1,4,7);
         }
         else if(row===2){
-          // coreAnimation('top',100,6,7,8);
-          // coreAnimation('bot',100,6,7,8);
-          // coreAnimation('front',100,6,7,8);
-          // coreAnimation('back',0,0,1,2);
+
+          coreAnimation('left',100,2,5,8);
+          coreAnimation('right',100,2,5,8);
+          coreAnimation('front',100,2,5,8);
+          coreAnimation('back',100,2,5,8);
         }
       }
 
