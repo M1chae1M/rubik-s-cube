@@ -226,34 +226,33 @@ export default class App extends Component{
           rotateYcopy.o1.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o1=x.split('(')[1].split('deg')[0]}})
           rotateYcopy.o2.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateYcopy.o3.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o3=x.split('(')[1].split('deg')[0]}})
-  
-          if(name==='top'){
-            changeTransition(name,o1,o2,o3);
 
-            newStyles(o1,`rotateY(90deg)`);
-            newStyles(o2,`rotateY(90deg) translateX(50px) translateZ(-50px)`);
-            newStyles(o3,`rotateY(90deg) translateX(100px) translateZ(-100px)`);
-          }
-          else if(name==='right'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,`rotateX(-90deg) translateY(0px) translateZ(0px`);
-            newStyles(o2,`rotateX(-90deg) translateY(50px) translateZ(-50px)`);
-            newStyles(o3,`rotateX(-90deg) translateY(100px) translateZ(-100px)`);
-          }
-          else if(name==='bot'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,`rotateY(-90deg)`);
-            newStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
-            newStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
-          }
-          else if(name==='left'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,`rotateX(90deg)`);
-            newStyles(o2,`rotateX(90deg) translateY(50px) translateZ(50px)`);
-            newStyles(o3,`rotateX(90deg) translateY(100px) translateZ(100px)`);
+          changeTransition(name,o1,o2,o3);
+          switch(name){
+            case 'top':{
+              newStyles(o1,`rotateY(90deg)`);
+              newStyles(o2,`rotateY(90deg) translateX(50px) translateZ(-50px)`);
+              newStyles(o3,`rotateY(90deg) translateX(100px) translateZ(-100px)`);
+              break;
+            }
+            case 'right':{
+              newStyles(o1,`rotateX(-90deg)`);
+              newStyles(o2,`rotateX(-90deg) translateY(50px) translateZ(-50px)`);
+              newStyles(o3,`rotateX(-90deg) translateY(100px) translateZ(-100px)`);
+              break;
+            }
+            case 'bot':{
+              newStyles(o1,`rotateY(-90deg)`);
+              newStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+              newStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
+              break;
+            }
+            case 'left':{
+              newStyles(o1,`rotateX(90deg)`);
+              newStyles(o2,`rotateX(90deg) translateY(50px) translateZ(50px)`);
+              newStyles(o3,`rotateX(90deg) translateY(100px) translateZ(100px)`);
+              break;
+            }
           }
         }
         
