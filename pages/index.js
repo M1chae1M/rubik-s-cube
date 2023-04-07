@@ -135,53 +135,49 @@ export default class App extends Component{
           rotateXcopy.o1.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o1=x.split('(')[1].split('deg')[0]}})
           rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
-  
-          if(name==='left'){
-            changeTransition(name,o1,o2,o3);
 
-            addStyles(o1,`rotateY(-90deg)`);
-            addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
-            addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
-          }
-          else if(name==='right'){
-            changeTransition(name,o1,o2,o3);
-
-            addStyles(o1,`rotateY(-90deg)`);
-            addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
-            addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
-          }
-          else if(name==='front'){
-            changeTransition(name,o1,o2,o3);
-
-            changeStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
-            changeStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
-            changeStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
-          }
-          else if(name==='back'){
-            changeTransition(name,o1,o2,o3);
-
-            changeStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
-            changeStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
-            changeStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
+          changeTransition(name,o1,o2,o3);
+          switch(name){
+            case 'left':{
+              addStyles(o1,`rotateY(-90deg)`);
+              addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+              addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
+              break;
+            }
+            case 'right':{
+              addStyles(o1,`rotateY(-90deg)`);
+              addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+              addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
+              break;
+            }
+            case 'front':{
+              changeStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
+              changeStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
+              changeStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
+              break;
+            }
+            case 'back':{
+              changeStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
+              changeStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
+              changeStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
+              break;
+            }
           }
         }
   
         if(row===0){
-
           coreAnimation('left',0,0,3,6)
           coreAnimation('right',0,0,3,6)
           coreAnimation('front',0,0,3,6);
           coreAnimation('back',0,0,3,6);
         }
         else if(row===1){
-
           coreAnimation('left',50,1,4,7);
           coreAnimation('right',50,1,4,7);
           coreAnimation('front',50,1,4,7);
           coreAnimation('back',50,1,4,7);
         }
         else if(row===2){
-
           coreAnimation('left',100,2,5,8);
           coreAnimation('right',100,2,5,8);
           coreAnimation('front',100,2,5,8);
@@ -350,33 +346,32 @@ export default class App extends Component{
           rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
   
-          if(name==='top'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
-            newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
-            newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
-          }
-          else if(name==='bot'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,` translateX(${move}px) translateY(0px) rotateX(${parseInt(deg.o1)-90}deg)`);
-            newStyles(o2,` translateX(${move}px) translateY(-50px) rotateX(${parseInt(deg.o2)-90}deg)`);
-            newStyles(o3,` translateX(${move}px) translateY(-100px) rotateX(${parseInt(deg.o3)-90}deg)`);
-          }
-          else if(name==='front'){
-            changeTransition(name,o1,o2,o3);
-
-            newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px) translateY(0px)`);
-            newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
-            newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
-          }
-          else if(name==='back'){
-            changeTransition(name,o1,o2,o3);
-
-            queryName[o1].style.transform+=`rotateX(${parseInt(deg.o1)+90}deg)`;
-            queryName[o2].style.transform+=`rotateX(${parseInt(deg.o2)+90}deg) translateY(50px) translateZ(50px)`;
-            queryName[o3].style.transform+=`rotateX(${parseInt(deg.o3)+90}deg) translateY(100px) translateZ(100px)`;
+          changeTransition(name,o1,o2,o3);
+          switch(name){
+            case 'top':{
+              newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
+              newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
+              newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+              break;
+            }
+            case 'bot':{
+              newStyles(o1,` translateX(${move}px) rotateX(${parseInt(deg.o1)-90}deg)`);
+              newStyles(o2,` translateX(${move}px) translateY(-50px) rotateX(${parseInt(deg.o2)-90}deg)`);
+              newStyles(o3,` translateX(${move}px) translateY(-100px) rotateX(${parseInt(deg.o3)-90}deg)`);
+              break;
+            }
+            case 'front':{
+              newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
+              newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
+              newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+              break;
+            }
+            case 'back':{
+              queryName[o1].style.transform+=`rotateX(${parseInt(deg.o1)+90}deg)`;
+              queryName[o2].style.transform+=`rotateX(${parseInt(deg.o2)+90}deg) translateY(50px) translateZ(50px)`;
+              queryName[o3].style.transform+=`rotateX(${parseInt(deg.o3)+90}deg) translateY(100px) translateZ(100px)`;
+              break;
+            }
           }
         }
   
