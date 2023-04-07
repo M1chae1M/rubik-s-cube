@@ -48,7 +48,7 @@ export default class App extends Component{
       return cubeMixed;
     }
 
-    ['front','back','left','right','top','bot']
+    Object.keys(sides)
     .map(x=>cubeMixed=singleSideIsMixed(sides[x],firstF[x]));
 
     if(!mixed && cubeMixed) component.setState({mixed:true})
