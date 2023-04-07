@@ -124,7 +124,8 @@ export default class App extends Component{
           const deg={};
           const queryName=document?.querySelectorAll(`.${name}`);
           const getTransform=(obj)=>{return queryName[obj].style.transform};
-          const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
+          const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
+          const changeStyles=(obj,styles)=>queryName[obj].style.transform=styles;
           const rotateXcopy={
             o1:getTransform(o1).split(' '),
             o2:getTransform(o2).split(' '),
@@ -138,30 +139,30 @@ export default class App extends Component{
           if(name==='left'){
             changeTransition(name,o1,o2,o3);
 
-            queryName[o1].style.transform+=`rotateY(-90deg)`;
-            queryName[o2].style.transform+=`rotateY(-90deg) translateX(50px) translateZ(50px)`;
-            queryName[o3].style.transform+=`rotateY(-90deg) translateX(100px) translateZ(100px)`;
+            addStyles(o1,`rotateY(-90deg)`);
+            addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+            addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
           }
           else if(name==='right'){
             changeTransition(name,o1,o2,o3);
 
-            queryName[o1].style.transform+=`rotateY(-90deg)`;
-            queryName[o2].style.transform+=`rotateY(-90deg) translateX(50px) translateZ(50px)`;
-            queryName[o3].style.transform+=`rotateY(-90deg) translateX(100px) translateZ(100px)`;
+            addStyles(o1,`rotateY(-90deg)`);
+            addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+            addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
           }
           else if(name==='front'){
             changeTransition(name,o1,o2,o3);
 
-            queryName[o1].style.transform=`rotateY(-90deg) translateY(${move}px)`;
-            queryName[o2].style.transform=`rotateY(-90deg) translateY(${move}px) translateX(50px)`;
-            queryName[o3].style.transform=`rotateY(-90deg) translateY(${move}px) translateX(100px)`;
+            changeStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
+            changeStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
+            changeStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
           }
           else if(name==='back'){
             changeTransition(name,o1,o2,o3);
 
-            queryName[o1].style.transform=`rotateY(-270deg) translateY(${move}px)`;
-            queryName[o2].style.transform=`rotateY(-270deg) translateY(${move}px) translateX(50px)`;
-            queryName[o3].style.transform=`rotateY(-270deg) translateY(${move}px) translateX(100px)`;
+            changeStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
+            changeStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
+            changeStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
           }
         }
   
