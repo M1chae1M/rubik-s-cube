@@ -4,9 +4,9 @@ import {cubeNames,cubePos,colors} from "./_document";
 import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
-// const speed=400;
+const speed=400;
 // const speed=800;
-const speed=1000;
+// const speed=1000;
 
 export default class App extends Component{
   state={
@@ -14,6 +14,7 @@ export default class App extends Component{
     // rotateX:-45,
     // rotateY:135,
     rotateX:-45,
+    rotateX:45,
     rotateY:30,
     cubeState:cubePos,
   }
@@ -234,9 +235,7 @@ export default class App extends Component{
               // queryName[o3].style.transform+=`rotateY(90deg) translateX(100px) translateZ(-100px)`;
 
 
-              addStyles(o1,`translateZ(0px) translateX(0px) rotateY(90deg)`);
-              addStyles(o2,`translateZ(-50px) translateX(-50px) rotateY(90deg)`);
-              addStyles(o3,`translateZ(-100px) translateX(-100px) rotateY(90deg)`);
+         
 
               
               // addStyles(o1,`translateX(0px) translateZ(0px) rotateY(${deg.o1+90}deg)`);
@@ -250,24 +249,48 @@ export default class App extends Component{
               // queryName[o1].style.transform+=`translateX(0px) translateZ(0px) rotateY(90deg)`;
               // queryName[o2].style.transform+=`translateX(-50px) translateZ(-50px) rotateY(90deg)`;
               // queryName[o3].style.transform+=`translateX(-100px) translateZ(-100px) rotateY(90deg)`;
+
+              addStyles(o1,`translateZ(0px) translateX(0px) rotateY(90deg)`);
+              addStyles(o2,`translateZ(-50px) translateX(-50px) rotateY(90deg)`);
+              addStyles(o3,`translateZ(-100px) translateX(-100px) rotateY(90deg)`);
               break;
             }
             case 'right':{
-              addStyles(o1,`rotateX(-90deg)`);
+              addStyles(o1,`translateZ(0px) translateY(0px)rotateX(-90deg)`);
               addStyles(o2,`translateZ(-50px) translateY(-50px) rotateX(-90deg)`);
               addStyles(o3,`translateZ(-100px) translateY(-100px) rotateX(-90deg)`);
               break;
             }
             case 'bot':{
-              addStyles(o1,`rotateY(-90deg)`);
-              addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
-              addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
+
+              // addStyles(o1,`rotateY(-90deg)`);
+              // addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+              // addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
+
+              // addStyles(o1,`rotateY(-90deg)`);
+              // addStyles(o2,`translateX(-50px) translateZ(50px) rotateY(-90deg)`);
+              // addStyles(o3,`translateX(-100px) translateZ(100px) rotateY(-90deg)`);
+
+              // queryName[o1].style.transform+=`rotateY(-90deg)`;
+              // queryName[o2].style.transform+=`translateZ(50px) translateX(-50px) rotateY(-90deg)`;
+              // queryName[o3].style.transform+=`translateZ(100px) translateX(-100px) rotateY(-90deg)`;
+
+              addStyles(o1,`translateZ(0px) translateX(0px) rotateY(-90deg)`);
+              addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
+              addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
+
+           
               break;
             }
             case 'left':{
-              addStyles(o1,`rotateX(90deg)`);
-              addStyles(o2,`rotateX(90deg) translateY(50px) translateZ(50px)`);
-              addStyles(o3,`rotateX(90deg) translateY(100px) translateZ(100px)`);
+              // addStyles(o1,`rotateX(90deg)`);
+              // addStyles(o2,`rotateX(90deg) translateY(50px) translateZ(50px)`);
+              // addStyles(o3,`rotateX(90deg) translateY(100px) translateZ(100px)`);
+
+
+              addStyles(o1,`translateZ(0px) rotateX(90deg)`);
+              addStyles(o2,`translateZ(50px) translateY(-50px) rotateX(90deg)`);
+              addStyles(o3,`translateZ(100px) translateY(-100px) rotateX(90deg)`);
               break;
             }
           }
