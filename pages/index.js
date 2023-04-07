@@ -1,6 +1,7 @@
 import React,{Component, Fragment} from "react";
 import Side from "./Side";
 import {cubeNames,cubePos,colors} from "./_document";
+import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 
@@ -76,27 +77,22 @@ export default class App extends Component{
         width:'150px',
         height:'150px',
       },
-      rotateButton:{
-        position:'absolute',
-        top:'0%',
-        right:'0%',
-      },
     }
     let copyOf=cubeState;
     const moved=[0,50,100];
     const JSONcopy=(item)=>{return JSON.parse(JSON.stringify(item))};
-    function rotateLeft(matrix) {
+    function rotateL(matrix) {
       const transposedMatrix = transpose(matrix);
       return transposedMatrix.map(row => row.reverse());
     }
-    function rotateRight(matrix) {
+    function rotateR(matrix) {
       const reversedRowsMatrix = matrix.map(row => row.reverse());
       return transpose(reversedRowsMatrix);
     }
     function transpose(matrix) {
       return matrix[0].map((col,i) => matrix.map(row => row[i]));
     }
-    const changeTransition=(name,o1,o2,o3)=>{
+    const editTrans=(name,o1,o2,o3)=>{
       const queryName=document?.querySelectorAll(`.${name}`);
       const oldTransition=queryName[o1].style.transition;
       const copyStyles=(obj)=>{return queryName[obj].style.transform};
@@ -118,7 +114,7 @@ export default class App extends Component{
         },100);
       },400);
     }
-    const spinHorisontal=(row)=>{
+    const spinHoriz=(row)=>{
       const animate=(row)=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
           const deg={};
@@ -136,7 +132,7 @@ export default class App extends Component{
           rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
 
-          changeTransition(name,o1,o2,o3);
+          editTrans(name,o1,o2,o3);
           switch(name){
             case 'left':{
               addStyles(o1,`rotateY(-90deg)`);
@@ -194,8 +190,8 @@ export default class App extends Component{
           right:[...left.false[row]],
         }
         const {top}=copyOf;
-        if(row===0) copyOf.top.true=rotateLeft(top.true);
-        else if(row===2) copyOf.top.false=rotateLeft(top.false);
+        if(row===0) copyOf.top.true=rotateL(top.true);
+        else if(row===2) copyOf.top.false=rotateL(top.false);
 
         copyOf.front.true[row]=temp.right;
         copyOf.left.false[row]=temp.back;
@@ -206,11 +202,11 @@ export default class App extends Component{
       animate(row);
     }
     const fromTo=(from,to,column)=>{
-      to=rotateLeft(to);
+      to=rotateL(to);
       to[column]=from;
-      return rotateRight(to);
+      return rotateR(to);
     }
-    const spinVerticalX=(column)=>{
+    const spinVertX=(column)=>{
       const animate=()=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
           const deg={};
@@ -227,7 +223,7 @@ export default class App extends Component{
           rotateYcopy.o2.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateYcopy.o3.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o3=x.split('(')[1].split('deg')[0]}})
 
-          changeTransition(name,o1,o2,o3);
+          editTrans(name,o1,o2,o3);
           switch(name){
             case 'top':{
               newStyles(o1,`rotateY(90deg)`);
@@ -278,11 +274,11 @@ export default class App extends Component{
       setTimeout(()=>{
         const temp={
           top:copyOf.top.true[column],
-          left:[...rotateLeft(JSONcopy(copyOf.left.true))[column]],
+          left:[...rotateL(JSONcopy(copyOf.left.true))[column]],
         }
         if(column===1){
           temp.bot=copyOf.top.false[column];
-          temp.right=[...rotateLeft(copyOf.left.false)[column]];
+          temp.right=[...rotateL(copyOf.left.false)[column]];
           // right from top
           copyOf.left.false=fromTo(temp.top,copyOf.left.false,column);
           // bot from right
@@ -294,11 +290,11 @@ export default class App extends Component{
         }
         else if(column===2){
           temp.bot=copyOf.top.false[0];
-          temp.right=[...rotateLeft(copyOf.left.false)[0]]
+          temp.right=[...rotateL(copyOf.left.false)[0]]
           // right from top
-          copyOf.left.false=rotateLeft(copyOf.left.false);
+          copyOf.left.false=rotateL(copyOf.left.false);
           copyOf.left.false[0]=temp.top;
-          copyOf.left.false=rotateRight(copyOf.left.false);
+          copyOf.left.false=rotateR(copyOf.left.false);
           // bot from right
           copyOf.top.false[0]=temp.right;
           // left from bot
@@ -306,15 +302,15 @@ export default class App extends Component{
           // top from left
           copyOf.top.true[column]=temp.left;
 
-          copyOf.front.true=rotateLeft(copyOf.front.true);
+          copyOf.front.true=rotateL(copyOf.front.true);
         }
         else if(column===0){
           temp.bot=copyOf.top.false[2];
-          temp.right=[...rotateLeft(copyOf.left.false)[2]];
+          temp.right=[...rotateL(copyOf.left.false)[2]];
           //right from top
-          copyOf.left.false=rotateLeft(copyOf.left.false);
+          copyOf.left.false=rotateL(copyOf.left.false);
           copyOf.left.false[2]=temp.top;
-          copyOf.left.false=rotateRight(copyOf.left.false);
+          copyOf.left.false=rotateR(copyOf.left.false);
           // bot from right
           copyOf.top.false[2]=temp.right;
           // left from bot
@@ -322,13 +318,13 @@ export default class App extends Component{
           // top from left
           copyOf.top.true[column]=temp.left;
           
-          copyOf.front.false=rotateRight(copyOf.front.false);
+          copyOf.front.false=rotateR(copyOf.front.false);
         }
         this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
       },400)
       animate(column);
     }
-    const spinVerticalZ=(column)=>{
+    const spinVertZ=(column)=>{
       const animate=(column)=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
           const deg={};
@@ -345,7 +341,7 @@ export default class App extends Component{
           rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=x.split('(')[1].split('deg')[0]}})
           rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
   
-          changeTransition(name,o1,o2,o3);
+          editTrans(name,o1,o2,o3);
           switch(name){
             case 'top':{
               newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
@@ -395,10 +391,10 @@ export default class App extends Component{
       }
       setTimeout(()=>{
         const temp={
-          top:[...rotateLeft(JSONcopy(copyOf.top.true))[column]],
-          bot:[...rotateLeft(JSONcopy(copyOf.top.false))[column]],
-          front:[...rotateLeft(JSONcopy(copyOf.front.true))[column]],
-          back:[...rotateRight(JSONcopy(copyOf.front.false))[column]],
+          top:[...rotateL(JSONcopy(copyOf.top.true))[column]],
+          bot:[...rotateL(JSONcopy(copyOf.top.false))[column]],
+          front:[...rotateL(JSONcopy(copyOf.front.true))[column]],
+          back:[...rotateR(JSONcopy(copyOf.front.false))[column]],
         }
         // top from back
         copyOf.top.true=fromTo(temp.back,copyOf.top.true,column);
@@ -407,12 +403,12 @@ export default class App extends Component{
         // bot from front
         copyOf.top.false=fromTo(temp.front,copyOf.top.false,column);
         // back from bot
-        copyOf.front.false=rotateRight(copyOf.front.false);
+        copyOf.front.false=rotateR(copyOf.front.false);
         copyOf.front.false[column]=temp.bot;
-        copyOf.front.false=rotateLeft(copyOf.front.false);
+        copyOf.front.false=rotateL(copyOf.front.false);
   
-        if(column===0) copyOf.left.true=rotateLeft(copyOf.left.true)
-        else if(column===2) copyOf.left.false=rotateRight(copyOf.left.false)
+        if(column===0) copyOf.left.true=rotateL(copyOf.left.true)
+        else if(column===2) copyOf.left.false=rotateR(copyOf.left.false)
   
         this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
 
@@ -421,7 +417,7 @@ export default class App extends Component{
     }
     return(
       <div id="App" style={styles.App}>
-        <CTXprov.Provider value={{colors,cubeState,cubeNames}}>
+        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
@@ -432,22 +428,7 @@ export default class App extends Component{
               <Side name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          <div style={styles.rotateButton}>
-            <input type="button" value='+45X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
-            <input type="button" value='+45Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>
-            spin horisontal:
-            <input type="button" value='0' onClick={()=>{spinHorisontal(0)}}/>
-            <input type="button" value='1' onClick={()=>{spinHorisontal(1)}}/>
-            <input type="button" value='2' onClick={()=>{spinHorisontal(2)}}/>
-            spin X:
-            <input type="button" value='0' onClick={()=>{spinVerticalX(0)}}/>
-            <input type="button" value='1' onClick={()=>{spinVerticalX(1)}}/>
-            <input type="button" value='2' onClick={()=>{spinVerticalX(2)}}/>
-            spin Z:
-            <input type="button" value='0' onClick={()=>{spinVerticalZ(0)}}/>
-            <input type="button" value='1' onClick={()=>{spinVerticalZ(1)}}/>
-            <input type="button" value='2' onClick={()=>{spinVerticalZ(2)}}/>
-          </div>
+          <ControlMenu newState={(newState)=>this.setState(newState)}/>
         </CTXprov.Provider>
       </div>
     )
