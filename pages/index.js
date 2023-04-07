@@ -7,14 +7,14 @@ export const CTXprov=React.createContext();
 export default class App extends Component{
   state={
     mixed:false,
+    // rotateX:-45,
+    // rotateY:100,
+    // rotateX:45,
+    // rotateY:-100,
+    // rotateX:135,
+    // rotateY:-170,
     rotateX:-45,
-    rotateY:100,
-    rotateX:45,
-    rotateY:-100,
-    rotateX:135,
-    rotateY:-170,
-    // rotateX:0,
-    // rotateY:0,
+    rotateY:30,
     cubeState:cubePos,
   }
   componentDidMount(){
@@ -96,29 +96,6 @@ export default class App extends Component{
     function transpose(matrix) {
       return matrix[0].map((col,i) => matrix.map(row => row[i]));
     }
-    const spinHorisontal=(row)=>{
-      const {front,left}=copyOf;
-      const temp={
-        front:[...front.true[row]],
-        back:[...front.false[row]],
-        left:[...left.true[row]],
-        right:[...left.false[row]],
-      }
-      const {top}=copyOf;
-      if(row===0) copyOf.top.true=rotateLeft(top.true);
-      else if(row===2) copyOf.top.false=rotateLeft(top.false);
-
-      copyOf.front.true[row]=temp.right;
-      copyOf.left.false[row]=temp.back;
-      copyOf.front.false[row]=temp.left;
-      copyOf.left.true[row]=temp.front;
-      this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
-    }
-    const fromTo=(from,to,column)=>{
-      to=rotateLeft(to);
-      to[column]=from;
-      return rotateRight(to);
-    }
     const changeTransition=(name,o1,o2,o3)=>{
       const queryName=document?.querySelectorAll(`.${name}`);
       const oldTransition=queryName[o1].style.transition;
@@ -140,6 +117,98 @@ export default class App extends Component{
           [o1,o2,o3].map(x=>queryName[x].style.transition=oldTransition);
         },100);
       },400);
+    }
+    const spinHorisontal=(row)=>{
+      const animate=(row)=>{
+        const coreAnimation=(name,move,o1,o2,o3)=>{
+          const deg={};
+          const queryName=document?.querySelectorAll(`.${name}`);
+          const getTransform=(obj)=>{return queryName[obj].style.transform};
+          const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
+          const rotateXcopy={
+            o1:getTransform(o1).split(' '),
+            o2:getTransform(o2).split(' '),
+            o3:getTransform(o3).split(' '),
+          };
+  
+          rotateXcopy.o1.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o1=x.split('(')[1].split('deg')[0]}})
+          rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=x.split('(')[1].split('deg')[0]}})
+          rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=x.split('(')[1].split('deg')[0]}})
+  
+          if(name==='left'){
+            // changeTransition(name,o1,o2,o3);
+
+            // newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px)`);
+            // newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
+            // newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+          }
+          else if(name==='right'){
+            // changeTransition(name,o1,o2,o3);
+
+            // newStyles(o1,` translateX(${move}px) translateY(0px) rotateX(${parseInt(deg.o1)-90}deg)`);
+            // newStyles(o2,` translateX(${move}px) translateY(-50px) rotateX(${parseInt(deg.o2)-90}deg)`);
+            // newStyles(o3,` translateX(${move}px) translateY(-100px) rotateX(${parseInt(deg.o3)-90}deg)`);
+          }
+          else if(name==='front'){
+            // changeTransition(name,o1,o2,o3);
+
+            // newStyles(o1,`rotateX(${parseInt(deg.o1)-90}deg) translateX(${move}px) translateY(0px)`);
+            // newStyles(o2,`rotateX(${parseInt(deg.o2)-90}deg) translateX(${move}px) translateY(50px)`);
+            // newStyles(o3,`rotateX(${parseInt(deg.o3)-90}deg) translateX(${move}px) translateY(100px)`);
+          }
+          else if(name==='back'){
+            // changeTransition(name,o1,o2,o3);
+
+            // queryName[o1].style.transform+=`rotateX(${parseInt(deg.o1)+90}deg)`;
+            // queryName[o2].style.transform+=`rotateX(${parseInt(deg.o2)+90}deg) translateY(50px) translateZ(50px)`;
+            // queryName[o3].style.transform+=`rotateX(${parseInt(deg.o3)+90}deg) translateY(100px) translateZ(100px)`;
+          }
+        }
+  
+        if(row===0){
+          // coreAnimation('top',0,0,1,2)
+          // coreAnimation('bot',0,0,1,2);
+          // coreAnimation('front',0,0,1,2);
+          // coreAnimation('back',0,6,7,8);
+        }
+        else if(row===1){
+          // coreAnimation('top',50,3,4,5);
+          // coreAnimation('bot',50,3,4,5);
+          // coreAnimation('front',50,3,4,5);
+          // coreAnimation('back',0,3,4,5);
+        }
+        else if(row===2){
+          // coreAnimation('top',100,6,7,8);
+          // coreAnimation('bot',100,6,7,8);
+          // coreAnimation('front',100,6,7,8);
+          // coreAnimation('back',0,0,1,2);
+        }
+      }
+
+      setTimeout(()=>{
+        const {front,left}=copyOf;
+        const temp={
+          front:[...front.true[row]],
+          back:[...front.false[row]],
+          left:[...left.true[row]],
+          right:[...left.false[row]],
+        }
+        const {top}=copyOf;
+        if(row===0) copyOf.top.true=rotateLeft(top.true);
+        else if(row===2) copyOf.top.false=rotateLeft(top.false);
+
+        copyOf.front.true[row]=temp.right;
+        copyOf.left.false[row]=temp.back;
+        copyOf.front.false[row]=temp.left;
+        copyOf.left.true[row]=temp.front;
+        this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
+      },400);
+      animate(row);
+    }
+    const fromTo=(from,to,column)=>{
+      to=rotateLeft(to);
+      to[column]=from;
+      return rotateRight(to);
     }
     const spinVerticalX=(column)=>{
       const animate=()=>{
