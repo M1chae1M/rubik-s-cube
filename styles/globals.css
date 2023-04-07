@@ -3,7 +3,3 @@ html,body,#root,#App{width:100vw;height:100vh;position:relative;}
 #side{
   border:solid yellow 1.5px;
 }
-/* .top{
-  background-color:transparent !important;
-  color:transparent !important;
-} */
