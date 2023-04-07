@@ -4,16 +4,14 @@ import {cubeNames,cubePos,colors} from "./_document";
 import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
+// const FXtime=400;
+const FXtime=800;
 
 export default class App extends Component{
   state={
     mixed:false,
     // rotateX:-45,
-    // rotateY:100,
-    // rotateX:45,
-    // rotateY:-100,
-    // rotateX:135,
-    // rotateY:-170,
+    // rotateY:135,
     rotateX:-45,
     rotateY:30,
     cubeState:cubePos,
@@ -63,7 +61,7 @@ export default class App extends Component{
         justifyItems:'center',
         alignContent:'center',
         transition:'all ease-in-out 0.3s',
-        backgroundColor:mixed?'#e38ff2':'transparent',
+        background:mixed?'#e38ff2':'transparent',
       },
       fullCube:{
         transition:'all 0.5s ease-in-out',
@@ -112,7 +110,7 @@ export default class App extends Component{
         setTimeout(()=>{
           [o1,o2,o3].map(x=>queryName[x].style.transition=oldTransition);
         },100);
-      },400);
+      },FXtime);
     }
     const spinHoriz=(row)=>{
       const animate=(row)=>{
@@ -198,7 +196,7 @@ export default class App extends Component{
         copyOf.front.false[row]=temp.left;
         copyOf.left.true[row]=temp.front;
         this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
-      },400);
+      },FXtime);
       animate(row);
     }
     const fromTo=(from,to,column)=>{
@@ -412,7 +410,7 @@ export default class App extends Component{
   
         this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
 
-      },400);
+      },FXtime);
       animate(column);
     }
     return(
@@ -420,12 +418,12 @@ export default class App extends Component{
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
-              <Side name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
-              <Side name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
-              <Side name="back" rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
-              <Side name="bot" rotateX={270} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
-              <Side name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
-              <Side name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
+              <Side FXtime={FXtime} name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+              <Side FXtime={FXtime} name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
+              <Side FXtime={FXtime} name="back" rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
+              <Side FXtime={FXtime} name="bot" rotateX={270} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
+              <Side FXtime={FXtime} name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
+              <Side FXtime={FXtime} name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
           <ControlMenu newState={(newState)=>this.setState(newState)}/>
