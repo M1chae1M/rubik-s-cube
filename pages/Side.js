@@ -7,7 +7,7 @@ export default class Side extends Component{
     const styles={
       Side:{
         transition:`all 0.4s ease-in-out`,
-        transition:`all ${this.props.FXtime/1000}s ease-in-out`,
+        transition:`all ${this.props.speed/1000}s ease-in-out`,
         // transition:'all 0.8s ease-in-out',
         transformStyle:'preserve-3d',
         position:'absolute',
@@ -29,9 +29,7 @@ export default class Side extends Component{
         const {colors}=value??{};
         const bgColor=colors?.[children?.[idx]?.[i]];
 
-        return <div style={{...styles.Side,background:bgColor}} id="side" className={name}>
-          {/* {children?.[idx]?.[i]} */}
-        </div>
+        return <div style={{...styles.Side,background:bgColor}} id="side" className={name}/>
       }}
       </CTXprov.Consumer>
     )
