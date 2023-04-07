@@ -421,8 +421,8 @@ export default class App extends Component{
     }
     return(
       <div id="App" style={styles.App}>
-        <div id="fullCube" style={styles.fullCube}>
-          <CTXprov.Provider value={{colors,cubeState,cubeNames}}>
+        <CTXprov.Provider value={{colors,cubeState,cubeNames}}>
+          <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
               <Side name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
@@ -431,24 +431,24 @@ export default class App extends Component{
               <Side name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
               <Side name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
-          </CTXprov.Provider>
-        </div>
-        <div style={styles.rotateButton}>
-          <input type="button" value='+45X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
-          <input type="button" value='+45Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>
-          spin horisontal:
-          <input type="button" value='0' onClick={()=>{spinHorisontal(0)}}/>
-          <input type="button" value='1' onClick={()=>{spinHorisontal(1)}}/>
-          <input type="button" value='2' onClick={()=>{spinHorisontal(2)}}/>
-          spin X:
-          <input type="button" value='0' onClick={()=>{spinVerticalX(0)}}/>
-          <input type="button" value='1' onClick={()=>{spinVerticalX(1)}}/>
-          <input type="button" value='2' onClick={()=>{spinVerticalX(2)}}/>
-          spin Z:
-          <input type="button" value='0' onClick={()=>{spinVerticalZ(0)}}/>
-          <input type="button" value='1' onClick={()=>{spinVerticalZ(1)}}/>
-          <input type="button" value='2' onClick={()=>{spinVerticalZ(2)}}/>
-        </div>
+          </div>
+          <div style={styles.rotateButton}>
+            <input type="button" value='+45X' onClick={()=>{this.setState({rotateX:rotateX+45})}}/>
+            <input type="button" value='+45Y' onClick={()=>{this.setState({rotateY:rotateY+45})}}/>
+            spin horisontal:
+            <input type="button" value='0' onClick={()=>{spinHorisontal(0)}}/>
+            <input type="button" value='1' onClick={()=>{spinHorisontal(1)}}/>
+            <input type="button" value='2' onClick={()=>{spinHorisontal(2)}}/>
+            spin X:
+            <input type="button" value='0' onClick={()=>{spinVerticalX(0)}}/>
+            <input type="button" value='1' onClick={()=>{spinVerticalX(1)}}/>
+            <input type="button" value='2' onClick={()=>{spinVerticalX(2)}}/>
+            spin Z:
+            <input type="button" value='0' onClick={()=>{spinVerticalZ(0)}}/>
+            <input type="button" value='1' onClick={()=>{spinVerticalZ(1)}}/>
+            <input type="button" value='2' onClick={()=>{spinVerticalZ(2)}}/>
+          </div>
+        </CTXprov.Provider>
       </div>
     )
   }
