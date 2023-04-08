@@ -1,13 +1,13 @@
 import React,{Component} from "react";
 import {CTXprov} from ".";
-
+import {speed} from ".";
 export default class Side extends Component{
   render(){
     const {rotateY,rotateX,children,idx,i,X,Y,name}=this.props;
     const styles={
       Side:{
         transition:`all 0.4s ease-in-out`,
-        transition:`all ${this.props.speed/1000}s ease-in-out`,
+        transition:`all ${speed/1000}s ease-in-out`,
         // transition:'all 0.8s ease-in-out',
         transformStyle:'preserve-3d',
         position:'absolute',

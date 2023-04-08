@@ -4,9 +4,9 @@ import {cubeNames,cubePos,colors} from "./_document";
 import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
-const speed=400;
-// const speed=800;
-// const speed=1000;
+export const speed=400;
+// export const speed=800;
+// export const speed=1000;
 
 export default class App extends Component{
   state={
@@ -226,71 +226,27 @@ export default class App extends Component{
           // editTrans(name,o1,o2,o3);
           switch(name){
             case 'top':{
-              // addStyles(o1,`rotateY(90deg)`);
-              // addStyles(o2,`rotateY(90deg) translateX(50px) translateZ(-50px)`);
-              // addStyles(o3,`rotateY(90deg) translateX(100px) translateZ(-100px)`);
-
-              // queryName[o1].style.transform+=`rotateY(90deg)`;
-              // queryName[o2].style.transform+=`rotateY(90deg) translateX(50px) translateZ(-50px)`;
-              // queryName[o3].style.transform+=`rotateY(90deg) translateX(100px) translateZ(-100px)`;
-
-
-         
-
-              
-              // addStyles(o1,`translateX(0px) translateZ(0px) rotateY(${deg.o1+90}deg)`);
-              // addStyles(o2,`translateX(-50px) translateZ(-50px) rotateY(${deg.o2+90}deg)`);
-              // addStyles(o3,`translateX(-100px) translateZ(-100px) rotateY(${deg.o3+90}deg)`);
-
-              // addStyles(o1,` translateZ(0px) translateX(0px) rotateY(${parseInt(deg.o1)+90}deg)`);
-              // addStyles(o2,` translateZ(-50px) translateX(-50px) rotateY(${parseInt(deg.o1)+90}deg)`);
-              // addStyles(o3,` translateZ(-100px) translateX(-100px) rotateY(${parseInt(deg.o1)+90}deg)`);
-
-              // queryName[o1].style.transform+=`translateX(0px) translateZ(0px) rotateY(90deg)`;
-              // queryName[o2].style.transform+=`translateX(-50px) translateZ(-50px) rotateY(90deg)`;
-              // queryName[o3].style.transform+=`translateX(-100px) translateZ(-100px) rotateY(90deg)`;
-
-              addStyles(o1,`translateZ(0px) translateX(0px) rotateY(90deg)`);
+              addStyles(o1,`rotateY(90deg)`);
               addStyles(o2,`translateZ(-50px) translateX(-50px) rotateY(90deg)`);
               addStyles(o3,`translateZ(-100px) translateX(-100px) rotateY(90deg)`);
               break;
             }
+            case 'left':{
+              addStyles(o1,`rotateX(90deg)`);
+              addStyles(o2,`translateZ(50px) translateY(-50px) rotateX(90deg)`);
+              addStyles(o3,`translateZ(100px) translateY(-100px) rotateX(90deg)`);
+              break;
+            }
             case 'right':{
-              addStyles(o1,`translateZ(0px) translateY(0px)rotateX(-90deg)`);
-              addStyles(o2,`translateZ(-50px) translateY(-50px) rotateX(-90deg)`);
-              addStyles(o3,`translateZ(-100px) translateY(-100px) rotateX(-90deg)`);
+              // addStyles(o1,`rotateX(-90deg)`);
+              // addStyles(o2,`translateZ(-50px) translateY(-50px) rotateX(-90deg)`);
+              // addStyles(o3,`translateZ(-100px) translateY(-100px) rotateX(-90deg)`);
               break;
             }
             case 'bot':{
-
               // addStyles(o1,`rotateY(-90deg)`);
-              // addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
-              // addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
-
-              // addStyles(o1,`rotateY(-90deg)`);
-              // addStyles(o2,`translateX(-50px) translateZ(50px) rotateY(-90deg)`);
-              // addStyles(o3,`translateX(-100px) translateZ(100px) rotateY(-90deg)`);
-
-              // queryName[o1].style.transform+=`rotateY(-90deg)`;
-              // queryName[o2].style.transform+=`translateZ(50px) translateX(-50px) rotateY(-90deg)`;
-              // queryName[o3].style.transform+=`translateZ(100px) translateX(-100px) rotateY(-90deg)`;
-
-              addStyles(o1,`translateZ(0px) translateX(0px) rotateY(-90deg)`);
-              addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
-              addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
-
-           
-              break;
-            }
-            case 'left':{
-              // addStyles(o1,`rotateX(90deg)`);
-              // addStyles(o2,`rotateX(90deg) translateY(50px) translateZ(50px)`);
-              // addStyles(o3,`rotateX(90deg) translateY(100px) translateZ(100px)`);
-
-
-              addStyles(o1,`translateZ(0px) rotateX(90deg)`);
-              addStyles(o2,`translateZ(50px) translateY(-50px) rotateX(90deg)`);
-              addStyles(o3,`translateZ(100px) translateY(-100px) rotateX(90deg)`);
+              // addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
+              // addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
               break;
             }
           }
@@ -464,12 +420,12 @@ export default class App extends Component{
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
-              <Side speed={speed} name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
-              <Side speed={speed} name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
-              <Side speed={speed} name="back" rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
-              <Side speed={speed} name="bot" rotateX={270} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
-              <Side speed={speed} name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
-              <Side speed={speed} name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
+<Side name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+<Side name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
+<Side name="back" rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
+<Side name="bot" rotateX={270} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
+<Side name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
+<Side name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
           <ControlMenu newState={(newState)=>this.setState(newState)}/>
