@@ -11,8 +11,8 @@ export default class App extends Component{
     mixed:false,
     turnX:-45,
     turnY:45,
-    turnY:135,
-    turnY:225,
+    // turnY:135,
+    // turnY:225,
     cubeState:cubePos,
   }
   componentDidMount(){
