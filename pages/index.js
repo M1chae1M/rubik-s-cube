@@ -5,21 +5,15 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 // export const speed=400;
-export const speed=600;
-// export const speed=200;
+// export const speed=600;
+export const speed=200;
 // export const speed=1000;
 
 export default class App extends Component{
   state={
     mixed:false,
-    // turnX:-45,
-    // turnY:135,
     turnX:-45,
-    turnX:45,
-    turnX:0,
-    // turnX:320,
-    turnY:30,
-    turnY:165,
+    turnY:45,
     cubeState:cubePos,
   }
   componentDidMount(){
@@ -163,9 +157,13 @@ export default class App extends Component{
               break;
             }
             case 'top':{
-              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
-              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
-              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              // changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
+              // changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              // changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+
+              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${0}px)`);
+              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${50}px)`);
+              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${100}px)`);
               break;
             }
             case 'bot':{
@@ -214,8 +212,8 @@ export default class App extends Component{
           right:[...left.false[row]],
         }
         const {top}=copyOf;
-        if(row===0) copyOf.top.true=rotateR(top.true);
-        else if(row===2) copyOf.top.false=rotateR(top.false);
+        if(row===0) copyOf.top.true=rotateL(top.true);
+        else if(row===2) copyOf.top.false=rotateL(top.false);
 
         copyOf.front.true[row]=temp.right;
         copyOf.left.false[row]=temp.back;
@@ -247,7 +245,7 @@ export default class App extends Component{
           rotateYcopy.o2.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o2=parseInt(x.split('(')[1].split('deg')[0])}})
           rotateYcopy.o3.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o3=parseInt(x.split('(')[1].split('deg')[0])}})
 
-          // editTrans(name,o1,o2,o3);
+          editTrans(name,o1,o2,o3);
           switch(name){
             case 'top':{
               addStyles(o1,`rotateY(90deg)`);
@@ -328,7 +326,6 @@ export default class App extends Component{
           // bot from right
           copyOf.top.false[column]=temp.right;
           // left from bot
-          console.log(temp.bot)
           copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
           // top from left
           copyOf.top.true[column]=temp.left;
