@@ -4,7 +4,8 @@ import {cubeNames,cubePos,colors} from "./_document";
 import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
-export const speed=400;
+// export const speed=400;
+export const speed=200;
 // export const speed=800;
 // export const speed=1000;
 
@@ -238,15 +239,16 @@ export default class App extends Component{
               break;
             }
             case 'right':{
-              // addStyles(o1,`rotateX(-90deg)`);
-              // addStyles(o2,`translateZ(-50px) translateY(-50px) rotateX(-90deg)`);
-              // addStyles(o3,`translateZ(-100px) translateY(-100px) rotateX(-90deg)`);
+              addStyles(o1,`rotateX(-90deg)`);
+              addStyles(o2,`translateZ(-50px) translateY(-50px) rotateX(-90deg)`);
+              addStyles(o3,`translateZ(-100px) translateY(-100px) rotateX(-90deg)`);
               break;
             }
             case 'bot':{
               // addStyles(o1,`rotateY(-90deg)`);
-              // addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
-              // addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
+              addStyles(o1,`rotateY(-90deg)`);
+              addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
+              addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
               break;
             }
           }
