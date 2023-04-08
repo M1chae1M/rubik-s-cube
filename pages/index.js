@@ -5,8 +5,8 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 // export const speed=400;
-// export const speed=600;
-export const speed=200;
+export const speed=600;
+// export const speed=200;
 // export const speed=1000;
 
 export default class App extends Component{
@@ -272,7 +272,7 @@ export default class App extends Component{
               break;
             }
             case 'front':{
-              addStyles(o1,`rotate(90deg)translateY(${+move}px) translateX(${move}px)`);
+              addStyles(o1,`rotate(90deg) translateY(${+move}px) translateX(${move}px)`);
               addStyles(o2,`rotate(90deg) translateY(${50+move}px) translateX(${-50+move}px)`);
               addStyles(o3,`rotate(90deg) translateY(${100+move}px) translateX(${-100+move}px)`);
               break;
@@ -409,6 +409,16 @@ export default class App extends Component{
               queryName[o3].style.transform+=`rotateX(${deg.o3+90}deg) translateY(100px) translateZ(100px)`;
               break;
             }
+            case 'left':{
+              newStyles(o1,`rotateY(-90deg) translateX(100px) translateY(${move}px)`);
+              newStyles(o2,`rotateY(-90deg) translateX(50px) translateY(${move}px)`);
+              newStyles(o3,`rotateY(-90deg) translateX(0px) translateY(${move}px)`);
+              break;
+            }
+            case 'right':{
+
+              break;
+            }
           }
         }
   
@@ -417,6 +427,10 @@ export default class App extends Component{
           coreAnimation('bot',0,0,1,2);
           coreAnimation('front',0,0,1,2);
           coreAnimation('back',0,6,7,8);
+
+          coreAnimation('left',0,0,1,2);
+          coreAnimation('left',50,3,4,5);
+          coreAnimation('left',100,6,7,8);
         }
         else if(column===1){
           coreAnimation('top',50,3,4,5);
