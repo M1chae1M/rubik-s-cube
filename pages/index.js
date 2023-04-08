@@ -4,10 +4,7 @@ import {cubeNames,cubePos,colors} from "./_document";
 import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
-// export const speed=400;
-// export const speed=600;
-export const speed=200;
-// export const speed=1000;
+export const speed=120;
 
 export default class App extends Component{
   state={
@@ -69,7 +66,6 @@ export default class App extends Component{
         transition:'all 0.5s ease-in-out',
         transformStyle:'preserve-3d',
         position:'relative',
-        // position:'absolute',
         display:'grid',
         transformOrigin:'75px 75px -75px',
         transform:`rotateX(${turnX}deg) rotateY(${turnY}deg)`,
@@ -159,13 +155,9 @@ export default class App extends Component{
               break;
             }
             case 'top':{
-              // changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
-              // changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
-              // changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
-
-              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${0}px)`);
-              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${50}px)`);
-              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(${100}px)`);
+              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
+              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
               break;
             }
             case 'bot':{
@@ -182,7 +174,6 @@ export default class App extends Component{
           coreAnimation('right',0,0,3,6)
           coreAnimation('front',0,0,3,6);
           coreAnimation('back',0,0,3,6);
-
           coreAnimation('top',0,0,1,2);
           coreAnimation('top',50,3,4,5);
           coreAnimation('top',100,6,7,8);
@@ -198,7 +189,6 @@ export default class App extends Component{
           coreAnimation('right',100,2,5,8);
           coreAnimation('front',100,2,5,8);
           coreAnimation('back',100,2,5,8);
-
           coreAnimation('bot',0,0,1,2);
           coreAnimation('bot',50,3,4,5);
           coreAnimation('bot',100,6,7,8);
@@ -293,7 +283,6 @@ export default class App extends Component{
           coreAnimation('right',0,6,7,8);
           coreAnimation('left',0,0,1,2);
           coreAnimation('bot',0,2,5,8);
-
           coreAnimation('back',0,0,1,2);
           coreAnimation('back',50,3,4,5);
           coreAnimation('back',100,6,7,8);
@@ -309,7 +298,6 @@ export default class App extends Component{
           coreAnimation('right',0,0,1,2);
           coreAnimation('left',0,6,7,8);
           coreAnimation('bot',0,0,3,6);
-
           coreAnimation('front',0,0,1,2);
           coreAnimation('front',50,3,4,5);
           coreAnimation('front',100,6,7,8);
@@ -394,9 +382,9 @@ export default class App extends Component{
               break;
             }
             case 'bot':{
-              newStyles(o1,` translateX(${move}px) rotateX(${deg.o1-90}deg)`);
-              newStyles(o2,` translateX(${move}px) translateY(-50px) rotateX(${deg.o2-90}deg)`);
-              newStyles(o3,` translateX(${move}px) translateY(-100px) rotateX(${deg.o3-90}deg)`);
+              newStyles(o1,`translateX(${move}px) rotateX(${deg.o1-90}deg)`);
+              newStyles(o2,`translateX(${move}px) translateY(-50px) rotateX(${deg.o2-90}deg)`);
+              newStyles(o3,`translateX(${move}px) translateY(-100px) rotateX(${deg.o3-90}deg)`);
               break;
             }
             case 'front':{
@@ -431,7 +419,6 @@ export default class App extends Component{
           coreAnimation('bot',0,0,1,2);
           coreAnimation('front',0,0,1,2);
           coreAnimation('back',0,6,7,8);
-
           coreAnimation('left',0,0,1,2);
           coreAnimation('left',50,3,4,5);
           coreAnimation('left',100,6,7,8);
@@ -447,7 +434,6 @@ export default class App extends Component{
           coreAnimation('bot',100,6,7,8);
           coreAnimation('front',100,6,7,8);
           coreAnimation('back',0,0,1,2);
-
           coreAnimation('right',0,0,1,2);
           coreAnimation('right',50,3,4,5);
           coreAnimation('right',100,6,7,8);

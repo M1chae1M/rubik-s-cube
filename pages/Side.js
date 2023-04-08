@@ -11,7 +11,6 @@ export default class Side extends Component{
         transition:`all ${speed/1000}s ease-in-out`,
         transformStyle:'preserve-3d',
         position:'absolute',
-        // position:'relative',
         width:'50px',
         height:'50px',
         color:'green',
