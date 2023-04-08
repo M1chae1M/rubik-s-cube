@@ -213,7 +213,7 @@ export default class App extends Component{
         }
         const {top}=copyOf;
         if(row===0) copyOf.top.true=rotateL(top.true);
-        else if(row===2) copyOf.top.false=rotateL(top.false);
+        else if(row===2) copyOf.top.false=rotateR(top.false);
 
         copyOf.front.true[row]=temp.right;
         copyOf.left.false[row]=temp.back;
