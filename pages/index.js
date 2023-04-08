@@ -245,7 +245,6 @@ export default class App extends Component{
               break;
             }
             case 'bot':{
-              // addStyles(o1,`rotateY(-90deg)`);
               addStyles(o1,`rotateY(-90deg)`);
               addStyles(o2,`translateZ(50px) translateX(-50px) rotateY(-90deg)`);
               addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
@@ -422,12 +421,12 @@ export default class App extends Component{
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
-<Side name="top" rotateX={90} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
-<Side name="front" rotateX={0} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
-<Side name="back" rotateX={0} rotateY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
-<Side name="bot" rotateX={270} rotateY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
-<Side name="left" rotateX={0} rotateY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
-<Side name="right" rotateX={0} rotateY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
+<Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
+<Side name="front" turnX={0} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
+<Side name="back" turnX={0} turnY={-180} X={x} Y={y} idx={idx} i={i}>{cubeState.front.false}</Side>
+<Side name="bot" turnX={270} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.false}</Side>
+<Side name="left" turnX={0} turnY={-90} X={x} Y={y} idx={idx} i={i}>{cubeState.left.true}</Side>
+<Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
           <ControlMenu newState={(newState)=>this.setState(newState)}/>
