@@ -15,12 +15,12 @@ export default class ControlMenu extends Component{
     return(
       <CTXprov.Consumer>
       {value=>{
-        const {spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}=value??{};
+        const {spinHoriz,spinVertX,spinVertZ,turnX,turnY}=value??{};
         const row=[0,1,2];
         return(
           <div style={styles.rotateButton}>
-            <Button value='+45X' onClick={()=>{newState({rotateX:rotateX+45})}}/>
-            <Button value='+45Y' onClick={()=>{newState({rotateY:rotateY+45})}}/>
+            <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/>
+            <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/>
             spin horisontal:
             {row.map(x=><Button value={x} onClick={()=>{spinHoriz(x)}}/>)}
             spin X:

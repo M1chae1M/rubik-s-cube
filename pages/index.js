@@ -12,11 +12,11 @@ export const speed=200;
 export default class App extends Component{
   state={
     mixed:false,
-    // rotateX:-45,
-    // rotateY:135,
-    rotateX:-45,
-    rotateX:45,
-    rotateY:30,
+    // turnX:-45,
+    // turnY:135,
+    turnX:-45,
+    turnX:45,
+    turnY:30,
     cubeState:cubePos,
   }
   componentDidMount(){
@@ -57,7 +57,7 @@ export default class App extends Component{
     else if(mixed && !cubeMixed) component.setState({mixed:false})
   }
   render(){
-    const {rotateX,rotateY,cubeState,mixed}=this.state;
+    const {turnX,turnY,cubeState,mixed}=this.state;
     const styles={
       App:{
         display:'grid',
@@ -73,7 +73,7 @@ export default class App extends Component{
         // position:'absolute',
         display:'grid',
         transformOrigin:'75px 75px -75px',
-        transform:`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        transform:`rotateX(${turnX}deg) rotateY(${turnY}deg)`,
         transition:'all ease-in-out 0.7s',
         width:'150px',
         height:'150px',
@@ -418,7 +418,7 @@ export default class App extends Component{
     }
     return(
       <div id="App" style={styles.App}>
-        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,rotateX,rotateY}}>
+        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
 <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
