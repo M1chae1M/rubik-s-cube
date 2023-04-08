@@ -5,8 +5,8 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 // export const speed=400;
-export const speed=600;
-// export const speed=200;
+// export const speed=600;
+export const speed=200;
 // export const speed=1000;
 
 export default class App extends Component{
@@ -14,6 +14,8 @@ export default class App extends Component{
     mixed:false,
     turnX:-45,
     turnY:45,
+    turnY:135,
+    turnY:225,
     cubeState:cubePos,
   }
   componentDidMount(){
@@ -416,7 +418,9 @@ export default class App extends Component{
               break;
             }
             case 'right':{
-
+              newStyles(o1,`rotate(-90deg) rotateX(-90deg) translateX(${move}px) translateY(0px)`);
+              newStyles(o2,`rotate(-90deg) rotateX(-90deg) translateX(${move}px) translateY(50px)`);
+              newStyles(o3,`rotate(-90deg) rotateX(-90deg) translateX(${move}px) translateY(100px)`);
               break;
             }
           }
@@ -443,6 +447,10 @@ export default class App extends Component{
           coreAnimation('bot',100,6,7,8);
           coreAnimation('front',100,6,7,8);
           coreAnimation('back',0,0,1,2);
+
+          coreAnimation('right',0,0,1,2);
+          coreAnimation('right',50,3,4,5);
+          coreAnimation('right',100,6,7,8);
         }
       }
       setTimeout(()=>{
