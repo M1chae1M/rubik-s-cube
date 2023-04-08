@@ -5,8 +5,8 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 // export const speed=400;
-export const speed=200;
-// export const speed=800;
+export const speed=600;
+// export const speed=200;
 // export const speed=1000;
 
 export default class App extends Component{
@@ -16,7 +16,10 @@ export default class App extends Component{
     // turnY:135,
     turnX:-45,
     turnX:45,
+    turnX:0,
+    // turnX:320,
     turnY:30,
+    turnY:165,
     cubeState:cubePos,
   }
   componentDidMount(){
@@ -159,6 +162,18 @@ export default class App extends Component{
               changeStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
               break;
             }
+            case 'top':{
+              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
+              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              break;
+            }
+            case 'bot':{
+              changeStyles(o1,`rotate(-90deg) rotateY(-90deg) translateX(${move}px)`);
+              changeStyles(o2,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              changeStyles(o3,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              break;
+            }
           }
         }
   
@@ -167,6 +182,10 @@ export default class App extends Component{
           coreAnimation('right',0,0,3,6)
           coreAnimation('front',0,0,3,6);
           coreAnimation('back',0,0,3,6);
+
+          coreAnimation('top',0,0,1,2);
+          coreAnimation('top',50,3,4,5);
+          coreAnimation('top',100,6,7,8);
         }
         else if(row===1){
           coreAnimation('left',50,1,4,7);
@@ -179,6 +198,10 @@ export default class App extends Component{
           coreAnimation('right',100,2,5,8);
           coreAnimation('front',100,2,5,8);
           coreAnimation('back',100,2,5,8);
+
+          coreAnimation('bot',0,0,1,2);
+          coreAnimation('bot',50,3,4,5);
+          coreAnimation('bot',100,6,7,8);
         }
       }
 
@@ -191,8 +214,8 @@ export default class App extends Component{
           right:[...left.false[row]],
         }
         const {top}=copyOf;
-        if(row===0) copyOf.top.true=rotateL(top.true);
-        else if(row===2) copyOf.top.false=rotateL(top.false);
+        if(row===0) copyOf.top.true=rotateR(top.true);
+        else if(row===2) copyOf.top.false=rotateR(top.false);
 
         copyOf.front.true[row]=temp.right;
         copyOf.left.false[row]=temp.back;
@@ -250,6 +273,18 @@ export default class App extends Component{
               addStyles(o3,`translateZ(100px) translateX(-100px) rotateY(-90deg)`);
               break;
             }
+            case 'front':{
+              addStyles(o1,`rotate(90deg)translateY(${+move}px) translateX(${move}px)`);
+              addStyles(o2,`rotate(90deg) translateY(${50+move}px) translateX(${-50+move}px)`);
+              addStyles(o3,`rotate(90deg) translateY(${100+move}px) translateX(${-100+move}px)`);
+              break;
+            }
+            case 'back':{
+              addStyles(o1,`rotate(-90deg) translateY(${-move}px) translateX(${0+move}px)`);
+              addStyles(o2,`rotate(-90deg) translateY(${50-move}px) translateX(${50+move}px)`);
+              addStyles(o3,`rotate(-90deg) translateY(${100-move}px) translateX(${100+move}px)`);
+              break;
+            }
           }
         }
         
@@ -258,6 +293,10 @@ export default class App extends Component{
           coreAnimation('right',0,6,7,8);
           coreAnimation('left',0,0,1,2);
           coreAnimation('bot',0,2,5,8);
+
+          coreAnimation('back',0,0,1,2);
+          coreAnimation('back',50,3,4,5);
+          coreAnimation('back',100,6,7,8);
         }
         else if(column===1){
           coreAnimation('top',-50,1,4,7);
@@ -270,6 +309,10 @@ export default class App extends Component{
           coreAnimation('right',0,0,1,2);
           coreAnimation('left',0,6,7,8);
           coreAnimation('bot',0,0,3,6);
+
+          coreAnimation('front',0,0,1,2);
+          coreAnimation('front',50,3,4,5);
+          coreAnimation('front',100,6,7,8);
         }
       }
       setTimeout(()=>{
@@ -281,11 +324,12 @@ export default class App extends Component{
           temp.bot=copyOf.top.false[column];
           temp.right=[...rotateL(copyOf.left.false)[column]];
           // right from top
-          copyOf.left.false=fromTo(temp.top,copyOf.left.false,column);
+          copyOf.left.false=fromTo(temp.top.reverse(),copyOf.left.false,column);
           // bot from right
           copyOf.top.false[column]=temp.right;
           // left from bot
-          copyOf.left.true=fromTo(temp.bot,copyOf.left.true,column);
+          console.log(temp.bot)
+          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
           // top from left
           copyOf.top.true[column]=temp.left;
         }
@@ -294,12 +338,12 @@ export default class App extends Component{
           temp.right=[...rotateL(copyOf.left.false)[0]]
           // right from top
           copyOf.left.false=rotateL(copyOf.left.false);
-          copyOf.left.false[0]=temp.top;
+          copyOf.left.false[0]=temp.top.reverse();
           copyOf.left.false=rotateR(copyOf.left.false);
           // bot from right
           copyOf.top.false[0]=temp.right;
           // left from bot
-          copyOf.left.true=fromTo(temp.bot,copyOf.left.true,column);
+          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
           // top from left
           copyOf.top.true[column]=temp.left;
 
@@ -310,19 +354,19 @@ export default class App extends Component{
           temp.right=[...rotateL(copyOf.left.false)[2]];
           //right from top
           copyOf.left.false=rotateL(copyOf.left.false);
-          copyOf.left.false[2]=temp.top;
+          copyOf.left.false[2]=temp.top.reverse();
           copyOf.left.false=rotateR(copyOf.left.false);
           // bot from right
           copyOf.top.false[2]=temp.right;
           // left from bot
-          copyOf.left.true=fromTo(temp.bot,copyOf.left.true,column);
+          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
           // top from left
           copyOf.top.true[column]=temp.left;
           
           copyOf.front.false=rotateR(copyOf.front.false);
         }
         this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
-      },400)
+      },speed)
       animate(column);
     }
     const spinVertZ=(column)=>{

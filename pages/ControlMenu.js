@@ -22,11 +22,11 @@ export default class ControlMenu extends Component{
             <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/>
             <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/>
             spin horisontal:
-            {row.map(x=><Button value={x} onClick={()=>{spinHoriz(x)}}/>)}
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinHoriz(x)}}/>)}
             spin X:
-            {row.map(x=><Button value={x} onClick={()=>{spinVertX(x)}}/>)}
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertX(x)}}/>)}
             spin Z:
-            {row.map(x=><Button value={x} onClick={()=>{spinVertZ(x)}}/>)}
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertZ(x)}}/>)}
           </div>
       )}}
       </CTXprov.Consumer>
