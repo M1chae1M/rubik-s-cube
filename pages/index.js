@@ -85,7 +85,7 @@ export default class App extends Component{
       return transpose(reversedRowsMatrix);
     }
     function transpose(matrix){
-      return matrix[0].map((col,i)=>matrix.map(row=>row[i]));
+      return matrix[0].map((x,i)=>matrix.map(row=>row[i]));
     }
     const editTrans=(name,o1,o2,o3)=>{
       const queryName=document?.querySelectorAll(`.${name}`);
