@@ -19,7 +19,7 @@ export default class Side extends Component{
         display:'grid',
         justifyItems:'center',
         alignItems:'center',
-        userSelect:'none',
+        // userSelect:'none',
       },
     }
     return(

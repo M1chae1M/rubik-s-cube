@@ -1,5 +1,8 @@
 *{box-sizing:border-box;padding:0;margin:0;}
-html,body,#root,#App{width:100vw;height:100vh;position:relative;}
+html,body,#root,#App{width:95vw;height:95vh;position:relative;
+user-select:none;
+touch-action: none;
+}
 #side{
   border:solid yellow 1.5px;
 }

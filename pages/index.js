@@ -10,11 +10,15 @@ export default class App extends Component{
   state={
     mixed:false,
     turnX:-45,
+    // turnX:0,
     turnY:45,
     cubeState:cubePos,
     canMix:true,
     clicked:false,
-    cursor:{},
+    cursor:{X:0,Y:0},
+
+
+    text:''
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -54,7 +58,7 @@ export default class App extends Component{
     else if(mixed && !cubeMixed) component.setState({mixed:false})
   }
   render(){
-    const {turnX,turnY,cubeState,mixed}=this.state;
+    const {turnX,turnY,cubeState,mixed,cursor}=this.state;
     const styles={
       App:{
         display:'grid',
@@ -469,33 +473,56 @@ export default class App extends Component{
 
     const clickBackground=(e)=>{
       const {target}=e;
+      const newX=e.clientX;
+      const newY=e.clientY;
       e.stopPropagation();
       if(target.id==='App'){
-        console.log(target);
-        // console.log(e.clientX);
-        // console.log(e.clientY);
-        this.setState({clicked:true,cursor:{X:e.clientX,Y:e.clientY}})
+        // this.setState({mixed:!this.state.mixed})
+        this.setState({clicked:true,cursor:{X:newX,Y:newY}});
       }
     }
     const moveCube=(e)=>{
       const {target}=e;
-      if(this.state.clicked===true){
-        if(this.state.cursor?.X){
+      if(this.state.clicked){
 
-        }
+
+
+        // if(e?.touches?.[0]){
+        // const newX=e.touches[0].clientX;
+        // const newY=e.touches[0].clientY;
+
+        // if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=14})
+        // else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=14})
         
-        if(this.state.cursor?.Y){
+        // if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=14})
+        // else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=14})
 
+        // this.setState({cursor:{X:newX, Y:newY}})
+
+        // }
+        if(e?.target?.clientX){
+          const newX=e.clientX;
+          const newY=e.clientY;
+
+          if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=2});
+          else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=2});
+          
+          if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=2});
+          else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=2});
+
+          this.setState({cursor:{X:newX, Y:newY}})
         }
 
-        this.setState({cursor:{X:e.clientX, Y:e.clientY}})
-        console.log(e.clientX)
-        console.log(e.clientY)
-        
       }
     }
     return(
-      <div id="App" style={styles.App} onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}>
+      <div id="App" style={styles.App}
+      // onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
+      // onTouchStart
+      onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
+      // onTouchStart={()=>{this.setState({mixed:!this.state.mixed})}}
+      // onTouchMove={()=>{this.setState({mixed:!this.state.mixed})}}
+      >
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
@@ -507,7 +534,9 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          <ControlMenu newState={(newState)=>this.setState(newState)}/>
+          <ControlMenu newState={(newState)=>this.setState(newState)}
+          text={this.state.text}
+          />
         </CTXprov.Provider>
       </div>
     )

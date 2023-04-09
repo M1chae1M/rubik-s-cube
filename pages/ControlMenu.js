@@ -7,6 +7,7 @@ export default class ControlMenu extends Component{
     const {newState}=this.props;
     const styles={
       rotateButton:{
+        // userSelect:'none',
         position:'absolute',
         top:'0%',
         right:'0%',
@@ -19,6 +20,8 @@ export default class ControlMenu extends Component{
         const row=[0,1,2];
         return(
           <div style={styles.rotateButton}>
+            {/* {this.props.text===true?'text':'not text'} */}
+            {this.props.text}
             <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/>
             <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/>
             spin horisontal:
