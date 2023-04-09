@@ -463,8 +463,19 @@ export default class App extends Component{
         });
       }
     }
+
+
+    const clickBackground=(e)=>{
+      // e.preventDefault();
+      e.stopPropagation();
+      // e.stopBabbling();
+      // console.log(e.target);
+      if(e.target.id==='App'){
+        console.log(e.target)
+      }
+    }
     return(
-      <div id="App" style={styles.App}>
+      <div id="App" style={styles.App} onClick={clickBackground}>
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
