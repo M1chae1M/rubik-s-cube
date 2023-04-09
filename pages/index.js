@@ -18,7 +18,7 @@ export default class App extends Component{
     cursor:{X:0,Y:0},
 
 
-    text:''
+    // text:''
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -524,18 +524,41 @@ export default class App extends Component{
 
       if(target.id==='side'){
         console.log(target.className);
-        console.log(target.getAttribute('x'));
-        console.log(target.getAttribute('y'));
+      
+        const newX=target.getAttribute('x');
+        const newY=target.getAttribute('y');
+
+        console.log(newX);
+        console.log(newY);
+
+        this.setState({cursor:{X:newX,Y:newY}})
       }
     }
     const gestSpin=(e)=>{
       const {target}=e;
 
       if(target.id==='side'){
+
+        const newX=target.getAttribute('x');
+        const newY=target.getAttribute('y');
+
         console.log('gestSpin');
         console.log(target.className);
-        console.log(target.getAttribute('x'));
-        console.log(target.getAttribute('y'));
+        console.log(newX);
+        console.log(newY);
+        if(this.state.cursor.X>newX){
+          console.log('X był większy')
+        }
+        else if(this.state.cursor.X<newX){
+          console.log('X był mniejszy')
+        }
+
+        if(this.state.cursor.Y>newY){
+          console.log('Y był większy')
+        }
+        else if(this.state.cursor.Y<newY){
+          console.log('Y był mniejszy')
+        }
         console.log('gestSpin');
       }
     }
@@ -544,17 +567,12 @@ export default class App extends Component{
       onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
       onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
       >
-        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY
-        
-
-
-
-        // ,clickCube
-        }}>
-          <div id="fullCube" style={styles.fullCube}
-          onMouseDown={clickCube}
-          onMouseUp={gestSpin}
-          // onMouseUpCapture={gestSpin}
+        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
+          <div
+            id="fullCube"
+            style={styles.fullCube}
+            onMouseDown={clickCube}
+            onMouseUp={gestSpin}
           >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
@@ -566,7 +584,7 @@ export default class App extends Component{
             </Fragment>)}))}
           </div>
           <ControlMenu newState={(newState)=>this.setState(newState)}
-          text={this.state.text}
+          // text={this.state.text}
           />
         </CTXprov.Provider>
       </div>
