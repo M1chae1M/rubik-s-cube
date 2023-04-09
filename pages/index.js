@@ -13,6 +13,8 @@ export default class App extends Component{
     turnY:45,
     cubeState:cubePos,
     canMix:true,
+    clicked:false,
+    cursor:{},
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -466,16 +468,34 @@ export default class App extends Component{
 
 
     const clickBackground=(e)=>{
-      // e.preventDefault();
+      const {target}=e;
       e.stopPropagation();
-      // e.stopBabbling();
-      // console.log(e.target);
-      if(e.target.id==='App'){
-        console.log(e.target)
+      if(target.id==='App'){
+        console.log(target);
+        // console.log(e.clientX);
+        // console.log(e.clientY);
+        this.setState({clicked:true,cursor:{X:e.clientX,Y:e.clientY}})
+      }
+    }
+    const moveCube=(e)=>{
+      const {target}=e;
+      if(this.state.clicked===true){
+        if(this.state.cursor?.X){
+
+        }
+        
+        if(this.state.cursor?.Y){
+
+        }
+
+        this.setState({cursor:{X:e.clientX, Y:e.clientY}})
+        console.log(e.clientX)
+        console.log(e.clientY)
+        
       }
     }
     return(
-      <div id="App" style={styles.App} onClick={clickBackground}>
+      <div id="App" style={styles.App} onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}>
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
           <div id="fullCube" style={styles.fullCube}>
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
