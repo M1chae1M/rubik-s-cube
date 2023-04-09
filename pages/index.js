@@ -520,15 +520,26 @@ export default class App extends Component{
     }
 
     const clickCube=(e)=>{
-      console.log(e.target);
+      
+      console.log(e.target.className);
+      // console.log(e.target.getAttribute(side));
+
     }
     return(
       <div id="App" style={styles.App}
       onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
       onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
       >
-        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
-          <div id="fullCube" style={styles.fullCube} onClick={clickCube}>
+        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY
+        
+
+
+
+        // ,clickCube
+        }}>
+          <div id="fullCube" style={styles.fullCube}
+          onClick={clickCube}
+          >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
               <Side name="front" turnX={0} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>

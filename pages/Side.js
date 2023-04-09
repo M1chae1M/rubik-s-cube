@@ -25,9 +25,17 @@ export default class Side extends Component{
     return(
       <CTXprov.Consumer>
       {value=>{
-        const {colors}=value??{};
+        const {colors
+
+
+
+
+        // ,clickCube
+        }=value??{};
         const bgColor=colors?.[children?.[idx]?.[i]];
-        return <div style={{...styles.Side,background:bgColor}} id="side" className={name}/>
+        return <div style={{...styles.Side,background:bgColor}} id="side" className={name}
+        // onClick={(e)=>{clickCube(e)}}
+        />
       }}
       </CTXprov.Consumer>
     )
