@@ -60,7 +60,7 @@ export const colors={
   front:'red',
   back:'grey',
   top:'black',
-  bot:'yellow',
+  bot:'rgb(0, 255, 213)',
   left:'purple',
   right:'lightgreen',
 }

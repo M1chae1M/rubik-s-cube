@@ -4,5 +4,5 @@ user-select:none;
 touch-action: none;
 }
 #side{
-  border:solid yellow 1.5px;
+  border:solid rgb(255, 255, 0) 1.5px;
 }
