@@ -182,26 +182,28 @@ export default class App extends Component{
           coreAnimation('bot',100,6,7,8);
         }
       }
+      if(this.state.canMix){
+        setTimeout(()=>{
+          this.setState({canMix:false});
+          const {front,left}=copyOf;
+          const temp={
+            front:[...front.true[row]],
+            back:[...front.false[row]],
+            left:[...left.true[row]],
+            right:[...left.false[row]],
+          }
+          const {top}=copyOf;
+          if(row===0) copyOf.top.true=rotateL(top.true);
+          else if(row===2) copyOf.top.false=rotateR(top.false);
 
-      setTimeout(()=>{
-        const {front,left}=copyOf;
-        const temp={
-          front:[...front.true[row]],
-          back:[...front.false[row]],
-          left:[...left.true[row]],
-          right:[...left.false[row]],
-        }
-        const {top}=copyOf;
-        if(row===0) copyOf.top.true=rotateL(top.true);
-        else if(row===2) copyOf.top.false=rotateR(top.false);
-
-        copyOf.front.true[row]=temp.right;
-        copyOf.left.false[row]=temp.back;
-        copyOf.front.false[row]=temp.left;
-        copyOf.left.true[row]=temp.front;
-        this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
-      },speed);
-      animate(row);
+          copyOf.front.true[row]=temp.right;
+          copyOf.left.false[row]=temp.back;
+          copyOf.front.false[row]=temp.left;
+          copyOf.left.true[row]=temp.front;
+          this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
+        },speed);
+        animate(row);
+      }
     }
     const fromTo=(from,to,column)=>{
       to=rotateL(to);
@@ -280,58 +282,61 @@ export default class App extends Component{
           coreAnimation('front',100,6,7,8);
         }
       }
-      setTimeout(()=>{
-        const temp={
-          top:copyOf.top.true[column],
-          left:[...rotateL(JSONcopy(copyOf.left.true))[column]],
-        }
-        if(column===1){
-          temp.bot=copyOf.top.false[column];
-          temp.right=[...rotateL(copyOf.left.false)[column]];
-          // right from top
-          copyOf.left.false=fromTo(temp.top.reverse(),copyOf.left.false,column);
-          // bot from right
-          copyOf.top.false[column]=temp.right;
-          // left from bot
-          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
-          // top from left
-          copyOf.top.true[column]=temp.left;
-        }
-        else if(column===2){
-          temp.bot=copyOf.top.false[0];
-          temp.right=[...rotateL(copyOf.left.false)[0]]
-          // right from top
-          copyOf.left.false=rotateL(copyOf.left.false);
-          copyOf.left.false[0]=temp.top.reverse();
-          copyOf.left.false=rotateR(copyOf.left.false);
-          // bot from right
-          copyOf.top.false[0]=temp.right;
-          // left from bot
-          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
-          // top from left
-          copyOf.top.true[column]=temp.left;
+      if(this.state.canMix){
+        setTimeout(()=>{
+          this.setState({canMix:false});
+          const temp={
+            top:copyOf.top.true[column],
+            left:[...rotateL(JSONcopy(copyOf.left.true))[column]],
+          }
+          if(column===1){
+            temp.bot=copyOf.top.false[column];
+            temp.right=[...rotateL(copyOf.left.false)[column]];
+            // right from top
+            copyOf.left.false=fromTo(temp.top.reverse(),copyOf.left.false,column);
+            // bot from right
+            copyOf.top.false[column]=temp.right;
+            // left from bot
+            copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
+            // top from left
+            copyOf.top.true[column]=temp.left;
+          }
+          else if(column===2){
+            temp.bot=copyOf.top.false[0];
+            temp.right=[...rotateL(copyOf.left.false)[0]]
+            // right from top
+            copyOf.left.false=rotateL(copyOf.left.false);
+            copyOf.left.false[0]=temp.top.reverse();
+            copyOf.left.false=rotateR(copyOf.left.false);
+            // bot from right
+            copyOf.top.false[0]=temp.right;
+            // left from bot
+            copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
+            // top from left
+            copyOf.top.true[column]=temp.left;
 
-          copyOf.front.true=rotateL(copyOf.front.true);
-        }
-        else if(column===0){
-          temp.bot=copyOf.top.false[2];
-          temp.right=[...rotateL(copyOf.left.false)[2]];
-          //right from top
-          copyOf.left.false=rotateL(copyOf.left.false);
-          copyOf.left.false[2]=temp.top.reverse();
-          copyOf.left.false=rotateR(copyOf.left.false);
-          // bot from right
-          copyOf.top.false[2]=temp.right;
-          // left from bot
-          copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
-          // top from left
-          copyOf.top.true[column]=temp.left;
-          
-          copyOf.front.false=rotateR(copyOf.front.false);
-        }
-        this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
-      },speed)
-      animate(column);
+            copyOf.front.true=rotateL(copyOf.front.true);
+          }
+          else if(column===0){
+            temp.bot=copyOf.top.false[2];
+            temp.right=[...rotateL(copyOf.left.false)[2]];
+            //right from top
+            copyOf.left.false=rotateL(copyOf.left.false);
+            copyOf.left.false[2]=temp.top.reverse();
+            copyOf.left.false=rotateR(copyOf.left.false);
+            // bot from right
+            copyOf.top.false[2]=temp.right;
+            // left from bot
+            copyOf.left.true=fromTo(temp.bot.reverse(),copyOf.left.true,column);
+            // top from left
+            copyOf.top.true[column]=temp.left;
+            
+            copyOf.front.false=rotateR(copyOf.front.false);
+          }
+          this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
+        },speed)
+        animate(column);
+      }
     }
     const spinVertZ=(column)=>{
       const animate=(column)=>{
@@ -416,31 +421,34 @@ export default class App extends Component{
           coreAnimation('right',100,6,7,8);
         }
       }
-      setTimeout(()=>{
-        const temp={
-          top:[...rotateL(JSONcopy(copyOf.top.true))[column]],
-          bot:[...rotateL(JSONcopy(copyOf.top.false))[column]],
-          front:[...rotateL(JSONcopy(copyOf.front.true))[column]],
-          back:[...rotateR(JSONcopy(copyOf.front.false))[column]],
-        }
-        // top from back
-        copyOf.top.true=fromTo(temp.back,copyOf.top.true,column);
-        // front from top
-        copyOf.front.true=fromTo(temp.top,copyOf.front.true,column);
-        // bot from front
-        copyOf.top.false=fromTo(temp.front,copyOf.top.false,column);
-        // back from bot
-        copyOf.front.false=rotateR(copyOf.front.false);
-        copyOf.front.false[column]=temp.bot;
-        copyOf.front.false=rotateL(copyOf.front.false);
-  
-        if(column===0) copyOf.left.true=rotateL(copyOf.left.true)
-        else if(column===2) copyOf.left.false=rotateR(copyOf.left.false)
-  
-        this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
+      if(this.state.canMix){
+        setTimeout(()=>{
+          this.setState({canMix:false});
+          const temp={
+            top:[...rotateL(JSONcopy(copyOf.top.true))[column]],
+            bot:[...rotateL(JSONcopy(copyOf.top.false))[column]],
+            front:[...rotateL(JSONcopy(copyOf.front.true))[column]],
+            back:[...rotateR(JSONcopy(copyOf.front.false))[column]],
+          }
+          // top from back
+          copyOf.top.true=fromTo(temp.back,copyOf.top.true,column);
+          // front from top
+          copyOf.front.true=fromTo(temp.top,copyOf.front.true,column);
+          // bot from front
+          copyOf.top.false=fromTo(temp.front,copyOf.top.false,column);
+          // back from bot
+          copyOf.front.false=rotateR(copyOf.front.false);
+          copyOf.front.false[column]=temp.bot;
+          copyOf.front.false=rotateL(copyOf.front.false);
+    
+          if(column===0) copyOf.left.true=rotateL(copyOf.left.true)
+          else if(column===2) copyOf.left.false=rotateR(copyOf.left.false)
+    
+          this.setState({cubeState:copyOf},this.isMixed(this,copyOf));
 
-      },speed);
-      animate(column);
+        },speed);
+        animate(column);
+      }
     }
     return(
       <div id="App" style={styles.App}>
