@@ -11,6 +11,10 @@ export default class ControlMenu extends Component{
         position:'absolute',
         top:'5%',
         right:'0%',
+        left:'0%',
+        // display:'grid',
+        textAlign:'center',
+        // border:'solid black 1px',
       },
     }
     return(
