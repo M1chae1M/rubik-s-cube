@@ -12,6 +12,7 @@ export default class App extends Component{
     turnX:-45,
     turnY:45,
     cubeState:cubePos,
+    canMix:true,
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -75,16 +76,16 @@ export default class App extends Component{
     let copyOf=cubeState;
     const moved=[0,50,100];
     const JSONcopy=(item)=>{return JSON.parse(JSON.stringify(item))};
-    function rotateL(matrix) {
-      const transposedMatrix = transpose(matrix);
-      return transposedMatrix.map(row => row.reverse());
+    function rotateL(matrix){
+      const transposedMatrix=transpose(matrix);
+      return transposedMatrix.map(row=>row.reverse());
     }
-    function rotateR(matrix) {
-      const reversedRowsMatrix = matrix.map(row => row.reverse());
+    function rotateR(matrix){
+      const reversedRowsMatrix=matrix.map(row=>row.reverse());
       return transpose(reversedRowsMatrix);
     }
-    function transpose(matrix) {
-      return matrix[0].map((col,i) => matrix.map(row => row[i]));
+    function transpose(matrix){
+      return matrix[0].map((col,i)=>matrix.map(row=>row[i]));
     }
     const editTrans=(name,o1,o2,o3)=>{
       const queryName=document?.querySelectorAll(`.${name}`);
@@ -98,7 +99,7 @@ export default class App extends Component{
 
       setTimeout(()=>{
         [o1,o2,o3].map(x=>queryName[x].style.transition='none');
-      
+
         queryName[o1].style.transform=copied.o1;
         queryName[o2].style.transform=copied.o2;
         queryName[o3].style.transform=copied.o3;
@@ -111,20 +112,9 @@ export default class App extends Component{
     const spinHoriz=(row)=>{
       const animate=(row)=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
-          const deg={};
           const queryName=document?.querySelectorAll(`.${name}`);
-          const getTransform=(obj)=>{return queryName[obj].style.transform};
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
           const changeStyles=(obj,styles)=>queryName[obj].style.transform=styles;
-          const rotateXcopy={
-            o1:getTransform(o1).split(' '),
-            o2:getTransform(o2).split(' '),
-            o3:getTransform(o3).split(' '),
-          };
-  
-          rotateXcopy.o1.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o1=parseInt(x.split('(')[1].split('deg')[0])}})
-          rotateXcopy.o2.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o2=parseInt(x.split('(')[1].split('deg')[0])}})
-          rotateXcopy.o3.map(x=>{if(x.slice(0,7)==='rotateX'){deg.o3=parseInt(x.split('(')[1].split('deg')[0])}})
 
           editTrans(name,o1,o2,o3);
           switch(name){
@@ -221,19 +211,8 @@ export default class App extends Component{
     const spinVertX=(column)=>{
       const animate=()=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
-          const deg={};
           const queryName=document?.querySelectorAll(`.${name}`);
-          const getTransform=(obj)=>{return queryName[obj].style.transform};
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
-          const rotateYcopy={
-            o1:getTransform(o1).split(' '),
-            o2:getTransform(o2).split(' '),
-            o3:getTransform(o3).split(' '),
-          };
-  
-          rotateYcopy.o1.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o1=parseInt(x.split('(')[1].split('deg')[0])}})
-          rotateYcopy.o2.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o2=parseInt(x.split('(')[1].split('deg')[0])}})
-          rotateYcopy.o3.map(x=>{if(x.slice(0,7)==='rotateY'){deg.o3=parseInt(x.split('(')[1].split('deg')[0])}})
 
           editTrans(name,o1,o2,o3);
           switch(name){
