@@ -521,17 +521,19 @@ export default class App extends Component{
 
     const clickCube=(e)=>{
       const {target}=e;
-
+     
       if(target.id==='side'){
-        console.log(target.className);
+        if(target.className==='top' || target.className==='bot'){
+          console.log(target.className);
       
-        const newX=target.getAttribute('x');
-        const newY=target.getAttribute('y');
-
-        console.log(newX);
-        console.log(newY);
-
-        this.setState({cursor:{X:newX,Y:newY}})
+          const newX=target.getAttribute('x');
+          const newY=target.getAttribute('y');
+  
+          console.log(newX);
+          console.log(newY);
+  
+          this.setState({cursor:{X:newX,Y:newY}});
+        }
       }
     }
     const gestSpin=(e)=>{
@@ -542,24 +544,22 @@ export default class App extends Component{
         const newX=target.getAttribute('x');
         const newY=target.getAttribute('y');
 
-        console.log('gestSpin');
-        console.log(target.className);
-        console.log(newX);
-        console.log(newY);
-        if(this.state.cursor.X>newX){
-          console.log('X był większy')
-        }
-        else if(this.state.cursor.X<newX){
-          console.log('X był mniejszy')
-        }
 
-        if(this.state.cursor.Y>newY){
-          console.log('Y był większy')
+        if(target.className==='top' || target.className==='bot'){
+          if(this.state.cursor.X>newX){
+            console.log('X był większy')
+          }
+          else if(this.state.cursor.X<newX){
+            console.log('X był mniejszy')
+          }
+
+          if(this.state.cursor.Y>newY){
+            console.log('Y był większy')
+          }
+          else if(this.state.cursor.Y<newY){
+            console.log('Y był mniejszy')
+          }
         }
-        else if(this.state.cursor.Y<newY){
-          console.log('Y był mniejszy')
-        }
-        console.log('gestSpin');
       }
     }
     return(
