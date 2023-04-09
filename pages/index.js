@@ -182,7 +182,7 @@ export default class App extends Component{
           coreAnimation('bot',100,6,7,8);
         }
       }
-      if(this.state.canMix===true){
+      if(this.state.canMix){
         this.setState({canMix:false},()=>{
 
           setTimeout(()=>{
