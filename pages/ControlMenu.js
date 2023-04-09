@@ -9,7 +9,7 @@ export default class ControlMenu extends Component{
       rotateButton:{
         // userSelect:'none',
         position:'absolute',
-        top:'0%',
+        top:'5%',
         right:'0%',
       },
     }
@@ -22,8 +22,8 @@ export default class ControlMenu extends Component{
           <div style={styles.rotateButton}>
             {/* {this.props.text===true?'text':'not text'} */}
             {this.props.text}
-            <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/>
-            <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/>
+            {/* <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/> */}
+            {/* <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/> */}
             spin horisontal:
             {row.map(x=><Button key={x} value={x} onClick={()=>{spinHoriz(x)}}/>)}
             spin X:

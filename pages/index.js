@@ -472,56 +472,58 @@ export default class App extends Component{
 
 
     const clickBackground=(e)=>{
-      const {target}=e;
-      const newX=e.clientX;
-      const newY=e.clientY;
-      e.stopPropagation();
-      if(target.id==='App'){
-        // this.setState({mixed:!this.state.mixed})
-        this.setState({clicked:true,cursor:{X:newX,Y:newY}});
+
+      if(e?.touches?.[0]){
+        const {target}=e;
+        const newX=e.touches[0].clientX;
+        const newY=e.touches[0].clientY;
+        e.stopPropagation();
+        target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
       }
+      else if(e?.clientX){
+        const {target}=e;
+        const newX=e.clientX;
+        const newY=e.clientY;
+        e.stopPropagation();
+        target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
+      }
+
+
+      
     }
     const moveCube=(e)=>{
       const {target}=e;
       if(this.state.clicked){
+        if(e?.touches?.[0]){
+        const newX=e.touches[0].clientX;
+        const newY=e.touches[0].clientY;
 
-
-
-        // if(e?.touches?.[0]){
-        // const newX=e.touches[0].clientX;
-        // const newY=e.touches[0].clientY;
-
-        // if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=14})
-        // else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=14})
+        if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=14})
+        else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=14})
         
-        // if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=14})
-        // else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=14})
+        if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=14})
+        else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=14})
 
-        // this.setState({cursor:{X:newX, Y:newY}})
-
-        // }
-        if(e?.target?.clientX){
+        this.setState({cursor:{X:newX, Y:newY}});
+        }
+        else if(e?.clientX){
           const newX=e.clientX;
           const newY=e.clientY;
 
-          if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=2});
-          else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=2});
+          if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=2})
+          else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=2})
           
-          if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=2});
-          else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=2});
+          if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=2})
+          else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=2})
 
-          this.setState({cursor:{X:newX, Y:newY}})
+          this.setState({cursor:{X:newX, Y:newY}});
         }
-
       }
     }
     return(
       <div id="App" style={styles.App}
-      // onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
-      // onTouchStart
+      onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
       onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
-      // onTouchStart={()=>{this.setState({mixed:!this.state.mixed})}}
-      // onTouchMove={()=>{this.setState({mixed:!this.state.mixed})}}
       >
         <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
           <div id="fullCube" style={styles.fullCube}>
