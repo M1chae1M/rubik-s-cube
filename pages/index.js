@@ -520,10 +520,24 @@ export default class App extends Component{
     }
 
     const clickCube=(e)=>{
-      
-      console.log(e.target.className);
-      // console.log(e.target.getAttribute(side));
+      const {target}=e;
 
+      if(target.id==='side'){
+        console.log(target.className);
+        console.log(target.getAttribute('x'));
+        console.log(target.getAttribute('y'));
+      }
+    }
+    const gestSpin=(e)=>{
+      const {target}=e;
+
+      if(target.id==='side'){
+        console.log('gestSpin');
+        console.log(target.className);
+        console.log(target.getAttribute('x'));
+        console.log(target.getAttribute('y'));
+        console.log('gestSpin');
+      }
     }
     return(
       <div id="App" style={styles.App}
@@ -538,7 +552,9 @@ export default class App extends Component{
         // ,clickCube
         }}>
           <div id="fullCube" style={styles.fullCube}
-          onClick={clickCube}
+          onMouseDown={clickCube}
+          onMouseUp={gestSpin}
+          // onMouseUpCapture={gestSpin}
           >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>

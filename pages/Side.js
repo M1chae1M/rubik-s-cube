@@ -35,6 +35,7 @@ export default class Side extends Component{
         const bgColor=colors?.[children?.[idx]?.[i]];
         return <div style={{...styles.Side,background:bgColor}} id="side" className={name}
         // onClick={(e)=>{clickCube(e)}}
+        x={idx} y={i}
         />
       }}
       </CTXprov.Consumer>
