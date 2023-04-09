@@ -19,22 +19,14 @@ export default class Side extends Component{
         display:'grid',
         justifyItems:'center',
         alignItems:'center',
-        // userSelect:'none',
       },
     }
     return(
       <CTXprov.Consumer>
       {value=>{
-        const {colors
-
-
-
-
-        // ,clickCube
-        }=value??{};
+        const {colors}=value??{};
         const bgColor=colors?.[children?.[idx]?.[i]];
         return <div style={{...styles.Side,background:bgColor}} id="side" className={name}
-        // onClick={(e)=>{clickCube(e)}}
         x={idx} y={i}
         />
       }}

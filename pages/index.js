@@ -10,15 +10,11 @@ export default class App extends Component{
   state={
     mixed:false,
     turnX:-45,
-    // turnX:0,
     turnY:45,
     cubeState:cubePos,
     canMix:true,
     clicked:false,
     cursor:{X:0,Y:0},
-
-
-    // text:''
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -567,7 +563,7 @@ export default class App extends Component{
       onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
       onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
       >
-        <CTXprov.Provider value={{colors,cubeState,cubeNames,spinHoriz,spinVertX,spinVertZ,turnX,turnY}}>
+        <CTXprov.Provider value={{colors,spinHoriz,spinVertX,spinVertZ}}>
           <div
             id="fullCube"
             style={styles.fullCube}
@@ -583,7 +579,8 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          <ControlMenu newState={(newState)=>this.setState(newState)}
+          <ControlMenu
+          // newState={(newState)=>this.setState(newState)}
           // text={this.state.text}
           />
         </CTXprov.Provider>

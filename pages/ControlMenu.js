@@ -4,30 +4,22 @@ import Button from "./Button";
 
 export default class ControlMenu extends Component{
   render(){
-    const {newState}=this.props;
     const styles={
       rotateButton:{
-        // userSelect:'none',
         position:'absolute',
         top:'5%',
         right:'0%',
         left:'0%',
-        // display:'grid',
         textAlign:'center',
-        // border:'solid black 1px',
       },
     }
     return(
       <CTXprov.Consumer>
       {value=>{
-        const {spinHoriz,spinVertX,spinVertZ,turnX,turnY}=value??{};
+        const {spinHoriz,spinVertX,spinVertZ}=value??{};
         const row=[0,1,2];
         return(
           <div style={styles.rotateButton}>
-            {/* {this.props.text===true?'text':'not text'} */}
-            {/* {this.props.text} */}
-            {/* <Button value='+45X' onClick={()=>{newState({turnX:turnX+45})}}/> */}
-            {/* <Button value='+45Y' onClick={()=>{newState({turnY:turnY+45})}}/> */}
             spin horisontal:
             {row.map(x=><Button key={x} value={x} onClick={()=>{spinHoriz(x)}}/>)}
             spin X:
