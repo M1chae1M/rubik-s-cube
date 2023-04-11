@@ -518,13 +518,12 @@ export default class App extends Component{
 
     const clickCube=(e)=>{
       const {target}=e;
-     
+      const {className}=target;
       if(target.id==='side'){
-      
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
 
-        this.setState({from:{X:newX,Y:newY,side:target.className}});
+        this.setState({from:{X:newX,Y:newY,side:className}});
       }
     }
     const gestSpin=(e)=>{
