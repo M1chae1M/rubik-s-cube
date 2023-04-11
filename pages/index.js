@@ -5,6 +5,7 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 export const speed=120;
+const cubeRef=React.createRef();
 
 export default class App extends Component{
   state={
@@ -569,13 +570,18 @@ export default class App extends Component{
         <CTXprov.Provider value={{colors,spinHoriz,spinVertX,spinVertZ}}>
           <div
             id="fullCube"
+            // ref={cubeRef}
             style={styles.fullCube}
             onMouseDown={clickCube} onMouseUp={gestSpin}
             // onTouchStart={clickCube} onTouchEnd={gestSpin}
-            // onClick={clickCube}
-            // onTouchMove={(e)=>{
-            //   console.log(e.touches)
-            // }}
+            onClick={clickCube}
+            onTouchMove={(e)=>{
+              // console.log(e.touches)
+              // const parentElement = cubeRef.current;
+              const touch = e.touches[0];
+              const targetElement = document?.elementFromPoint(touch.clientX, touch.clientY);
+              console.log(targetElement);
+            }}
             
             // onTouchEnd={gestSpin}
             >
@@ -588,7 +594,7 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          <ControlMenu newState={(newState)=>this.setState(newState)}/>
+          {/* <ControlMenu newState={(newState)=>this.setState(newState)}/> */}
         </CTXprov.Provider>
       </div>
     )
