@@ -561,8 +561,10 @@ export default class App extends Component{
           console.log(`${newX} ${newY}`)
 
           if(newY===from.Y){
-            // spinHoriz(newY)
             spinHoriz(newY)
+          }
+          else if(newX===from.X){
+            spinVertX(newX)
           }
         }
       }
