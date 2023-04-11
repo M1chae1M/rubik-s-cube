@@ -517,33 +517,34 @@ export default class App extends Component{
     }
 
     const clickCube=(e)=>{
-      if(target.id==='side'){
-        const {target}=e?.touches?.[0]?e?.touches?.[0]:e;
-        const {className}=target;
+      const target=e?.target?e.target:e.touches[0].target;
+      // console.log(target)
+      const {className}=target;
 
-        const newX=parseInt(target.getAttribute('x'));
-        const newY=parseInt(target.getAttribute('y'));
-
-        this.setState({from:{X:newX,Y:newY,side:className}});
-      }
+        if(target.id==='side'){
+          const newX=parseInt(target.getAttribute('x'));
+          const newY=parseInt(target.getAttribute('y'));
+  
+          this.setState({from:{X:newX,Y:newY,side:className}});
+        }
     }
     const gestSpin=(e)=>{
-      if(target.id==='side'){
-        const {target}=e?.touches?.[0]?.target?e?.touches?.[0]:e;
-        const {className}=target;
+      const target=e?.target?e.target:e.touches[0].target;
+      const {className}=target;
 
-        const newX=parseInt(target.getAttribute('x'));
-        const newY=parseInt(target.getAttribute('y'));
+      if(target.id==='side'){
+
+        const newX=parseInt(target?.getAttribute('x'));
+        const newY=parseInt(target?.getAttribute('y'));
         
         if(from.side===className){
-          console.log('on mobile gestspin');
 
           if(className==='top' || className==='bot'){
-            if(from?.X>newX && from.Y===newY) spinVertX(newY)
-            else if(from?.X<newX && from.Y===newY) spinVertX(newY)
+          if(from?.X>newX && from?.Y===newY) spinVertX(newY)
+          else if(from?.X<newX && from?.Y===newY) spinVertX(newY)
   
-            else if(from.Y>newY && from.X===newX) spinVertZ(newX)
-            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+          if(from?.Y>newY && from?.X===newX) spinVertZ(newX)
+          else if(from?.Y<newY && from?.X===newX) spinVertZ(newX)
           }
           else if((className==='left' || className==='right')){
             if(newX===from.X) spinVertX(newX)
