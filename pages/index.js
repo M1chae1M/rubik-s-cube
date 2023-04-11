@@ -531,6 +531,15 @@ export default class App extends Component{
   
           this.setState({from:{X:newX,Y:newY}});
         }
+
+
+
+        else if(target.className!=='top' || target.className!=='bot'){
+          const newX=parseInt(target.getAttribute('x'));
+          const newY=parseInt(target.getAttribute('y'));
+  
+          this.setState({from:{X:newX,Y:newY}});
+        }
       }
     }
     const gestSpin=(e)=>{
@@ -539,47 +548,25 @@ export default class App extends Component{
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
         
-        // console.log(`x: ${newX} y: ${newY}`)
-        // console.log(`xState: ${from.X} yState: ${from.Y}`)
         if(target.className==='top' || target.className==='bot'){
 
+          if(from?.X>newX && from.Y===newY) spinVertX(newY)
+          else if(from?.X<newX && from.Y===newY) spinVertX(newY)
 
-          // console.log(`${newX} ${newY}`)
-          // console.log(`${this.state.from.X} ${this.state.from.Y}`)
-          // if(newY===this.state.from?.Y){
-          //   console.log('Y się nie zmienił')
-          // }
+          if(from.Y>newY && from.X===newX) spinVertZ(newX)
+          else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+        }
+        else if(target.className!=='top' && target.className!=='bot'){
+          console.log(`${from?.X} ${from?.Y}`)
+          console.log(`${newX} ${newY}`)
 
-          if(from?.X>newX
-            && from.Y===newY
-            ){
-            // console.log('X był większy');
-            // console.log(from.X)
-            spinVertX(newY);
-          }
-          else if(from?.X<newX
-            && from.Y===newY
-            ){
-            // console.log('X był mniejszy');
-            // console.log(from.X)
-            // console.log(from.Y)
-            spinVertX(newY);
-          }
-
-          if(from.Y>newY
-            && from.X===newX
-            ){
-            // console.log('Y był większy')
-            spinVertZ(newX)
-          }
-          else if(from.Y<newY
-            && from.X===newX
-            ){
-            // console.log('Y był mniejszy')
-            spinVertZ(newX)
+          if(newY===from.Y){
+            // spinHoriz(newY)
+            spinHoriz(newY)
           }
         }
       }
+      
     }
     return(
       <div id="App" style={styles.App}
