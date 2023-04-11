@@ -533,22 +533,22 @@ export default class App extends Component{
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
         
-        if((target.className==='top' || target.className==='bot')&&from.side===target.className){
-
-          if(from?.X>newX && from.Y===newY) spinVertX(newY)
-          else if(from?.X<newX && from.Y===newY) spinVertX(newY)
-
-          if(from.Y>newY && from.X===newX) spinVertZ(newX)
-          else if(from.Y<newY && from.X===newX) spinVertZ(newX)
-        }
-        else if(target.className!=='top' && target.className!=='bot' && from.side===target.className){
-          if(newY===from.Y) spinHoriz(newY)
-        }
-        if((target.className==='left' || target.className==='right')&&from.side===target.className){
-          if(newX===from.X) spinVertX(newX)
-        }
-        else if((target.className==='front' || target.className==='back')&&from.side===target.className){
-          if(newX===from.X) spinVertZ(newX)
+        if(from.side===target.className){
+          if(target.className==='top' || target.className==='bot'){
+            if(from?.X>newX && from.Y===newY) spinVertX(newY)
+            else if(from?.X<newX && from.Y===newY) spinVertX(newY)
+  
+            else if(from.Y>newY && from.X===newX) spinVertZ(newX)
+            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+          }
+          else if((target.className==='left' || target.className==='right')){
+            if(newX===from.X) spinVertX(newX)
+            else if(newY===from.Y) spinHoriz(newY)
+          }
+          else if((target.className==='front' || target.className==='back')){
+            if(newX===from.X) spinVertZ(newX)
+            else if(newY===from.Y) spinHoriz(newY)
+          }
         }
       }
       
