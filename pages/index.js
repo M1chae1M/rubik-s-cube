@@ -509,6 +509,7 @@ export default class App extends Component{
           const newY=parseInt(target?.getAttribute('y'));
  
           if(className==='top' || className==='bot'){
+            console.log(className)
             if(from.X>newX && from.Y===newY) spinVertX(newY)
             else if(from.X<newX && from.Y===newY) spinVertX(newY)
     
