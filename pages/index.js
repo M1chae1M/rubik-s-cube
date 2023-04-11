@@ -15,6 +15,7 @@ export default class App extends Component{
     canMix:true,
     clicked:false,
     cursor:{X:0,Y:0},
+    from:{},
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -54,7 +55,7 @@ export default class App extends Component{
     else if(mixed && !cubeMixed) component.setState({mixed:false})
   }
   render(){
-    const {turnX,turnY,cubeState,mixed,cursor}=this.state;
+    const {turnX,turnY,cubeState,mixed,cursor,from}=this.state;
     const styles={
       App:{
         display:'grid',
@@ -520,44 +521,62 @@ export default class App extends Component{
      
       if(target.id==='side'){
         if(target.className==='top' || target.className==='bot'){
-          console.log(target.className);
+          // console.log(target.className);
       
-          const newX=target.getAttribute('x');
-          const newY=target.getAttribute('y');
+          const newX=parseInt(target.getAttribute('x'));
+          const newY=parseInt(target.getAttribute('y'));
   
-          console.log(newX);
-          console.log(newY);
+          // console.log(newX);
+          // console.log(newY);
   
-          this.setState({cursor:{X:newX,Y:newY}});
+          this.setState({from:{X:newX,Y:newY}});
         }
       }
     }
     const gestSpin=(e)=>{
       const {target}=e;
-
       if(target.id==='side'){
-
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
-
-
+        
+        // console.log(`x: ${newX} y: ${newY}`)
+        // console.log(`xState: ${from.X} yState: ${from.Y}`)
         if(target.className==='top' || target.className==='bot'){
-          if(this.state.cursor.X>newX){
+
+
+          // console.log(`${newX} ${newY}`)
+          // console.log(`${this.state.from.X} ${this.state.from.Y}`)
+          // if(newY===this.state.from?.Y){
+          //   console.log('Y się nie zmienił')
+          // }
+
+          if(from?.X>newX
+            && from.Y===newY
+            ){
             // console.log('X był większy');
-            spinVertZ(newY);            
+            // console.log(from.X)
+            spinVertX(newY);
           }
-          else if(this.state.cursor.X<newX){
+          else if(from?.X<newX
+            && from.Y===newY
+            ){
             // console.log('X był mniejszy');
-            spinVertZ(newY);            
+            // console.log(from.X)
+            // console.log(from.Y)
+            spinVertX(newY);
           }
 
-          if(this.state.cursor.Y>newY){
+          if(from.Y>newY
+            && from.X===newX
+            ){
             // console.log('Y był większy')
-            spinVertX(newX)
+            spinVertZ(newX)
           }
-          else if(this.state.cursor.Y<newY){
+          else if(from.Y<newY
+            && from.X===newX
+            ){
             // console.log('Y był mniejszy')
-            spinVertX(newX)
+            spinVertZ(newX)
           }
         }
       }

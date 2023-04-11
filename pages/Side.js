@@ -27,7 +27,8 @@ export default class Side extends Component{
         const {colors}=value??{};
         const bgColor=colors?.[children?.[idx]?.[i]];
         return <div style={{...styles.Side,background:bgColor}} id="side" className={name}
-        x={idx} y={i}
+        // x={idx} y={i}
+        x={i} y={idx}
         />
       }}
       </CTXprov.Consumer>
