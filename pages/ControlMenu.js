@@ -25,12 +25,9 @@ export default class ControlMenu extends Component{
           <div style={styles.rotateButton}>
    <div ref={parentRef} onTouchMove={(e)=>{
     const parentElement = parentRef.current;
-    const touch = event.targetTouches[0];
-    const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
-
-    if (parentElement.contains(targetElement)) {
-      console.log(targetElement);
-    }
+    const touch = e.touches[0];
+    const targetElement = document?.elementFromPoint(touch.clientX, touch.clientY);
+    console.log(targetElement);
    }}>
       <div>Child 1</div>
       <div>Child 2</div>
