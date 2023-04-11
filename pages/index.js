@@ -529,23 +529,24 @@ export default class App extends Component{
     }
     const gestSpin=(e)=>{
       const {target}=e;
+      const {className}=target;
       if(target.id==='side'){
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
         
-        if(from.side===target.className){
-          if(target.className==='top' || target.className==='bot'){
+        if(from.side===className){
+          if(className==='top' || className==='bot'){
             if(from?.X>newX && from.Y===newY) spinVertX(newY)
             else if(from?.X<newX && from.Y===newY) spinVertX(newY)
   
             else if(from.Y>newY && from.X===newX) spinVertZ(newX)
             else if(from.Y<newY && from.X===newX) spinVertZ(newX)
           }
-          else if((target.className==='left' || target.className==='right')){
+          else if((className==='left' || className==='right')){
             if(newX===from.X) spinVertX(newX)
             else if(newY===from.Y) spinHoriz(newY)
           }
-          else if((target.className==='front' || target.className==='back')){
+          else if((className==='front' || className==='back')){
             if(newX===from.X) spinVertZ(newX)
             else if(newY===from.Y) spinHoriz(newY)
           }
