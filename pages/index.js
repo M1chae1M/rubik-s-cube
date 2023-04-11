@@ -1,7 +1,6 @@
 import React,{Component, Fragment} from "react";
 import Side from "./Side";
-import {cubeNames,cubePos,colors} from "./_document";
-import ControlMenu from "./ControlMenu";
+import {cubePos,colors} from "./_document";
 
 export const CTXprov=React.createContext();
 export const speed=120;
@@ -16,7 +15,7 @@ export default class App extends Component{
     clicked:false,
     cursor:{X:0,Y:0},
     from:{},
-    touch:{},
+    touch:{X:0,Y:0},
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -56,13 +55,14 @@ export default class App extends Component{
     else if(mixed && !cubeMixed) component.setState({mixed:false})
   }
   render(){
-    const {turnX,turnY,cubeState,mixed,cursor,from,touch}=this.state;
+    const {turnX,turnY,cubeState,mixed,cursor,from}=this.state;
     const styles={
       App:{
         display:'grid',
         justifyItems:'center',
         alignContent:'center',
         transition:'all ease-in-out 0.3s',
+        // background:mixed?'#e38ff2':'rgb(63 63 63)',
         background:mixed?'#e38ff2':'transparent',
       },
       fullCube:{
@@ -188,7 +188,6 @@ export default class App extends Component{
       }
       if(this.state.canMix){
         this.setState({canMix:false},()=>{
-
           setTimeout(()=>{
             const {front,left}=copyOf;
             const temp={
@@ -212,7 +211,6 @@ export default class App extends Component{
           },speed);
           animate(row);
         });
-
       }
     }
     const fromTo=(from,to,column)=>{
@@ -468,9 +466,10 @@ export default class App extends Component{
       }
     }
     const clickBackground=(e)=>{
-      const {target}=e;
-      const newX=e?.touches?.[0]?e.touches[0].clientX:e.clientX;
-      const newY=e?.touches?.[0]?e.touches[0].clientY:e.clientY;
+      const condition=e?.touches?.[0];
+      const target=condition?condition.target:e.target;
+      const newX=condition?condition.clientX:e.clientX;
+      const newY=condition?condition.clientY:e.clientY;
       e.stopPropagation();
       target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
     }
@@ -490,52 +489,73 @@ export default class App extends Component{
       }
     }
     const clickCube=(e)=>{
-      const target=e?.target?e.target:e.touches[0].target;
+      const {target}=e?.touches?.[0]?e.touches[0]:e;
       const {className}=target;
 
-        if(target.id==='side'){
-          const newX=parseInt(target.getAttribute('x'));
-          const newY=parseInt(target.getAttribute('y'));
-  
-          this.setState({from:{X:newX,Y:newY,side:className}});
-        }
+      if(target.id==='side'){
+        const newX=parseInt(target.getAttribute('x'));
+        const newY=parseInt(target.getAttribute('y'));
+
+        this.setState({from:{X:newX,Y:newY,side:className}});
+      }
     }
     const gestSpin=(e)=>{
-      const target=e?.target?e.target:document?.elementFromPoint(touch.X, touch.Y);
+      const target=e?.clientX?e.target:document?.elementFromPoint(this.state.touch?.X, this.state.touch?.Y);
       const {className}=target;
       if(target.id==='side'){
         if(from.side===className){
           const newX=parseInt(target?.getAttribute('x'));
           const newY=parseInt(target?.getAttribute('y'));
- 
-          if(className==='top' || className==='bot'){
-            console.log(className)
-            if(from.X>newX && from.Y===newY) spinVertX(newY)
-            else if(from.X<newX && from.Y===newY) spinVertX(newY)
+
+          switch(className){
+            case 'top':{
+              if(from.X>newX && from.Y===newY) spinVertX(newY)
+              else if(from.X<newX && from.Y===newY) spinVertX(newY)
     
-            if(from.Y>newY && from.X===newX) spinVertZ(newX)
-            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
-          }
-          else if((className==='left' || className==='right')){
-            if(newX===from.X) spinVertX(newX)
-            else if(newY===from.Y) spinHoriz(newY)
-          }
-          else if((className==='front' || className==='back')){
-            if(newX===from.X) spinVertZ(newX)
-            else if(newY===from.Y) spinHoriz(newY)
+              if(from.Y>newY && from.X===newX) spinVertZ(newX)
+              else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+              break;
+            }
+            case 'bot':{
+              if(from.X>newX && from.Y===newY) spinVertX(newY===0?2:newY===2?0:1)
+              else if(from.X<newX && from.Y===newY) spinVertX(newY===0?2:newY===2?0:1)
+      
+              if(from.Y>newY && from.X===newX) spinVertZ(newX)
+              else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+              break;
+            }
+            case 'left':{
+              if(newX===from.X) spinVertX(newX)
+              else if(newY===from.Y) spinHoriz(newY)
+              break;
+            }
+            case 'right':{
+              if(newX===from.X) spinVertX(newX===0?2:newX===2?0:1)
+              else if(newY===from.Y) spinHoriz(newY)
+              break;
+            }
+            case 'front':{
+              if(newX===from.X) spinVertZ(newX)
+              else if(newY===from.Y) spinHoriz(newY)
+              break;
+            }
+            case 'back':{
+              if(newX===from.X) spinVertZ(newX===0?2:newX===2?0:1)
+              else if(newY===from.Y) spinHoriz(newY)
+              break;
+            }
           }
         }
       }
     }
     const onEnter=(e)=>{
       const touch=e.touches[0];
-      const {clientX,clientY}=touch;
-      this.setState({touch:{X:clientX, Y:clientY}})
+      this.setState({touch:{X:touch.clientX, Y:touch.clientY}})
     }
     return(
       <div id="App" style={styles.App}
-      onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
-      onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
+        onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
+        onTouchStart={clickBackground} onTouchMove={moveCube} onTouchEnd={()=>{this.setState({clicked:false})}}
       >
         <CTXprov.Provider value={{colors,spinHoriz,spinVertX,spinVertZ}}>
           <div
@@ -543,7 +563,7 @@ export default class App extends Component{
             style={styles.fullCube}
             onMouseDown={clickCube} onMouseUp={gestSpin}
             onTouchStart={clickCube} onTouchMove={onEnter} onTouchEnd={gestSpin}
-            >
+          >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
               <Side name="front" turnX={0} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
@@ -553,7 +573,6 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          {/* <ControlMenu newState={(newState)=>this.setState(newState)}/> */}
         </CTXprov.Provider>
       </div>
     )
