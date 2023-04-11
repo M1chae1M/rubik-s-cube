@@ -62,6 +62,7 @@ export default class App extends Component{
         justifyItems:'center',
         alignContent:'center',
         transition:'all ease-in-out 0.3s',
+        // background:mixed?'#e38ff2':'rgb(63 63 63)',
         background:mixed?'#e38ff2':'transparent',
       },
       fullCube:{
@@ -518,7 +519,6 @@ export default class App extends Component{
 
     const clickCube=(e)=>{
       const target=e?.target?e.target:e.touches[0].target;
-      // console.log(target)
       const {className}=target;
 
         if(target.id==='side'){
@@ -534,17 +534,18 @@ export default class App extends Component{
 
       if(target.id==='side'){
 
-        const newX=parseInt(target?.getAttribute('x'));
-        const newY=parseInt(target?.getAttribute('y'));
-        
-        if(from.side===className){
 
+        let newX=parseInt(target?.getAttribute('x'));
+        let newY=parseInt(target?.getAttribute('y'));
+
+        if(from.side===className){
           if(className==='top' || className==='bot'){
-          if(from?.X>newX && from?.Y===newY) spinVertX(newY)
-          else if(from?.X<newX && from?.Y===newY) spinVertX(newY)
-  
-          if(from?.Y>newY && from?.X===newX) spinVertZ(newX)
-          else if(from?.Y<newY && from?.X===newX) spinVertZ(newX)
+
+            if(from.X>newX && from.Y===newY) spinVertX(newY)
+            else if(from.X<newX && from.Y===newY) spinVertX(newY)
+    
+            if(from.Y>newY && from.X===newX) spinVertZ(newX)
+            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
           }
           else if((className==='left' || className==='right')){
             if(newX===from.X) spinVertX(newX)
@@ -578,7 +579,7 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          {/* <ControlMenu newState={(newState)=>this.setState(newState)}/> */}
+          <ControlMenu newState={(newState)=>this.setState(newState)}/>
         </CTXprov.Provider>
       </div>
     )

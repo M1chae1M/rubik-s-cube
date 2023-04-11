@@ -20,12 +20,13 @@ export default class ControlMenu extends Component{
         const row=[0,1,2];
         return(
           <div style={styles.rotateButton}>
-            {/* spin horisontal:
-            {row.map(x=><Button key={x} value={x} onClick={()=>{spinHoriz(x)}}/>)} */}
-            {/* spin X:
-            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertX(x)}}/>)} */}
-            {/* spin Z:
-            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertZ(x)}}/>)} */}
+            <div>Game in beta! To mix cube on mobile use buttons</div>
+            spin horisontal:
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinHoriz(x)}}/>)}
+            spin X:
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertX(x)}}/>)}
+            spin Z:
+            {row.map(x=><Button key={x} value={x} onClick={()=>{spinVertZ(x)}}/>)}
           </div>
       )}}
       </CTXprov.Consumer>
