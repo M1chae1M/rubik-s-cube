@@ -17,6 +17,7 @@ export default class App extends Component{
     clicked:false,
     cursor:{X:0,Y:0},
     from:{},
+    touch:{},
   }
   componentDidMount(){
     this.isMixed(this,this.state.cubeState);
@@ -530,26 +531,31 @@ export default class App extends Component{
         }
     }
     const gestSpin=(e)=>{
-      const target=e?.target?e.target:e.touches[0].target;
+      // const target=e?.target?e.target:e.touches[0].target;
+      // const touch = e.touches[0];
+      // console.log(touch)
+      const target = document?.elementFromPoint(this.state.touch.X, this.state.touch.Y);
+      // console.log(target);
       const {className}=target;
-
       if(target.id==='side'){
 
-
-
         if(from.side===className){
+
           const newX=parseInt(target?.getAttribute('x'));
           const newY=parseInt(target?.getAttribute('y'));
-  
+
+          if(className==='top'){
+            console.log('równa się')
+          }
           if(className==='top' || className==='bot'){
 
             console.log(`${newX} ${newY}`);
 
-            if(from.X>newX && from.Y===newY) spinVertX(newY)
-            else if(from.X<newX && from.Y===newY) spinVertX(newY)
+            // if(from.X>newX && from.Y===newY) spinVertX(newY)
+            // else if(from.X<newX && from.Y===newY) spinVertX(newY)
     
-            if(from.Y>newY && from.X===newX) spinVertZ(newX)
-            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+            // if(from.Y>newY && from.X===newX) spinVertZ(newX)
+            // else if(from.Y<newY && from.X===newX) spinVertZ(newX)
           }
           else if((className==='left' || className==='right')){
             if(newX===from.X) spinVertX(newX)
@@ -574,16 +580,13 @@ export default class App extends Component{
             style={styles.fullCube}
             onMouseDown={clickCube} onMouseUp={gestSpin}
             // onTouchStart={clickCube} onTouchEnd={gestSpin}
-            onClick={clickCube}
+            onTouchStart={clickCube}
             onTouchMove={(e)=>{
-              // console.log(e.touches)
-              // const parentElement = cubeRef.current;
-              const touch = e.touches[0];
-              const targetElement = document?.elementFromPoint(touch.clientX, touch.clientY);
-              console.log(targetElement);
+              const touch=e.touches[0];
+              this.setState({touch:{X:touch.clientX, Y:touch.clientY}})
             }}
             
-            // onTouchEnd={gestSpin}
+            onTouchEnd={gestSpin}
             >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
