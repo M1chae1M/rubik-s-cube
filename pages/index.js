@@ -537,23 +537,27 @@ export default class App extends Component{
 
       if(target.id==='side'){
 
-        const newX=target.getAttribute('x');
-        const newY=target.getAttribute('y');
+        const newX=parseInt(target.getAttribute('x'));
+        const newY=parseInt(target.getAttribute('y'));
 
 
         if(target.className==='top' || target.className==='bot'){
           if(this.state.cursor.X>newX){
-            console.log('X był większy')
+            // console.log('X był większy');
+            spinVertZ(newY);            
           }
           else if(this.state.cursor.X<newX){
-            console.log('X był mniejszy')
+            // console.log('X był mniejszy');
+            spinVertZ(newY);            
           }
 
           if(this.state.cursor.Y>newY){
-            console.log('Y był większy')
+            // console.log('Y był większy')
+            spinVertX(newX)
           }
           else if(this.state.cursor.Y<newY){
-            console.log('Y był mniejszy')
+            // console.log('Y był mniejszy')
+            spinVertX(newX)
           }
         }
       }
