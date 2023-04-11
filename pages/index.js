@@ -487,7 +487,7 @@ export default class App extends Component{
       
     }
     const moveCube=(e)=>{
-      const {target}=e;
+      // const {target}=e;
       if(this.state.clicked){
         if(e?.touches?.[0]){
         const newX=e.touches[0].clientX;
@@ -517,9 +517,10 @@ export default class App extends Component{
     }
 
     const clickCube=(e)=>{
-      const {target}=e;
-      const {className}=target;
       if(target.id==='side'){
+        const {target}=e?.touches?.[0]?e?.touches?.[0]:e;
+        const {className}=target;
+
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
 
@@ -527,13 +528,16 @@ export default class App extends Component{
       }
     }
     const gestSpin=(e)=>{
-      const {target}=e;
-      const {className}=target;
       if(target.id==='side'){
+        const {target}=e?.touches?.[0]?.target?e?.touches?.[0]:e;
+        const {className}=target;
+
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
         
         if(from.side===className){
+          console.log('on mobile gestspin');
+
           if(className==='top' || className==='bot'){
             if(from?.X>newX && from.Y===newY) spinVertX(newY)
             else if(from?.X<newX && from.Y===newY) spinVertX(newY)
@@ -551,7 +555,6 @@ export default class App extends Component{
           }
         }
       }
-      
     }
     return(
       <div id="App" style={styles.App}
@@ -562,8 +565,8 @@ export default class App extends Component{
           <div
             id="fullCube"
             style={styles.fullCube}
-            onMouseDown={clickCube}
-            onMouseUp={gestSpin}
+            onMouseDown={clickCube} onMouseUp={gestSpin}
+            onTouchStart={clickCube} onTouchEnd={gestSpin}
           >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
@@ -574,10 +577,7 @@ export default class App extends Component{
               <Side name="right" turnX={0} turnY={-270} X={x} Y={y} idx={idx} i={i}>{cubeState.left.false}</Side>
             </Fragment>)}))}
           </div>
-          <ControlMenu
-          // newState={(newState)=>this.setState(newState)}
-          // text={this.state.text}
-          />
+          {/* <ControlMenu newState={(newState)=>this.setState(newState)}/> */}
         </CTXprov.Provider>
       </div>
     )
