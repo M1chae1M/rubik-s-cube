@@ -542,12 +542,13 @@ export default class App extends Component{
           else if(from.Y<newY && from.X===newX) spinVertZ(newX)
         }
         else if(target.className!=='top' && target.className!=='bot' && from.side===target.className){
-          // console.log(`${from?.X} ${from?.Y}`)
-          // console.log(`${newX} ${newY}`)
-
           if(newY===from.Y) spinHoriz(newY)
-          else if(newX===from.X) spinVertX(newX)
-          
+        }
+        if((target.className==='left' || target.className==='right')&&from.side===target.className){
+          if(newX===from.X) spinVertX(newX)
+        }
+        else if((target.className==='front' || target.className==='back')&&from.side===target.className){
+          if(newX===from.X) spinVertZ(newX)
         }
       }
       
