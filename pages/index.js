@@ -5,7 +5,6 @@ import ControlMenu from "./ControlMenu";
 
 export const CTXprov=React.createContext();
 export const speed=120;
-const cubeRef=React.createRef();
 
 export default class App extends Component{
   state={
@@ -57,14 +56,13 @@ export default class App extends Component{
     else if(mixed && !cubeMixed) component.setState({mixed:false})
   }
   render(){
-    const {turnX,turnY,cubeState,mixed,cursor,from}=this.state;
+    const {turnX,turnY,cubeState,mixed,cursor,from,touch}=this.state;
     const styles={
       App:{
         display:'grid',
         justifyItems:'center',
         alignContent:'center',
         transition:'all ease-in-out 0.3s',
-        // background:mixed?'#e38ff2':'rgb(63 63 63)',
         background:mixed?'#e38ff2':'transparent',
       },
       fullCube:{
@@ -470,55 +468,27 @@ export default class App extends Component{
       }
     }
     const clickBackground=(e)=>{
-
-      if(e?.touches?.[0]){
-        const {target}=e;
-        const newX=e.touches[0].clientX;
-        const newY=e.touches[0].clientY;
-        e.stopPropagation();
-        target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
-      }
-      else if(e?.clientX){
-        const {target}=e;
-        const newX=e.clientX;
-        const newY=e.clientY;
-        e.stopPropagation();
-        target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
-      }
-
-
-      
+      const {target}=e;
+      const newX=e?.touches?.[0]?e.touches[0].clientX:e.clientX;
+      const newY=e?.touches?.[0]?e.touches[0].clientY:e.clientY;
+      e.stopPropagation();
+      target.id==='App' && this.setState({clicked:true,cursor:{X:newX,Y:newY}});
     }
     const moveCube=(e)=>{
-      // const {target}=e;
       if(this.state.clicked){
-        if(e?.touches?.[0]){
-        const newX=e.touches[0].clientX;
-        const newY=e.touches[0].clientY;
+        const condition=e?.touches?.[0];
+        const newX=condition?condition.clientX:e.clientX;
+        const newY=condition?condition.clientY:e.clientY;
 
-        if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=14})
-        else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=14})
+        if(cursor?.X>newX) this.setState(condition?{turnY:this.state.turnY-=8.5}:{turnY:this.state.turnY-=2})
+        else if(cursor?.X<newX) this.setState(condition?{turnY:this.state.turnY+=8.5}:{turnY:this.state.turnY+=2})
         
-        if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=14})
-        else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=14})
+        if(cursor?.Y>newY) this.setState(condition?{turnX:this.state.turnX+=8.5}:{turnX:this.state.turnX+=2})
+        else if(cursor?.Y<newY) this.setState(condition?{turnX:this.state.turnX-=8.5}:{turnX:this.state.turnX-=2})
 
         this.setState({cursor:{X:newX, Y:newY}});
-        }
-        else if(e?.clientX){
-          const newX=e.clientX;
-          const newY=e.clientY;
-
-          if(cursor?.X>newX) this.setState({turnY:this.state.turnY-=2})
-          else if(cursor?.X<newX) this.setState({turnY:this.state.turnY+=2})
-          
-          if(cursor?.Y>newY) this.setState({turnX:this.state.turnX+=2})
-          else if(cursor?.Y<newY) this.setState({turnX:this.state.turnX-=2})
-
-          this.setState({cursor:{X:newX, Y:newY}});
-        }
       }
     }
-
     const clickCube=(e)=>{
       const target=e?.target?e.target:e.touches[0].target;
       const {className}=target;
@@ -531,31 +501,19 @@ export default class App extends Component{
         }
     }
     const gestSpin=(e)=>{
-      // const target=e?.target?e.target:e.touches[0].target;
-      // const touch = e.touches[0];
-      // console.log(touch)
-      const target = document?.elementFromPoint(this.state.touch.X, this.state.touch.Y);
-      // console.log(target);
+      const target=e?.target?e.target:document?.elementFromPoint(touch.X, touch.Y);
       const {className}=target;
       if(target.id==='side'){
-
         if(from.side===className){
-
           const newX=parseInt(target?.getAttribute('x'));
           const newY=parseInt(target?.getAttribute('y'));
-
-          if(className==='top'){
-            console.log('równa się')
-          }
+ 
           if(className==='top' || className==='bot'){
-
-            console.log(`${newX} ${newY}`);
-
-            // if(from.X>newX && from.Y===newY) spinVertX(newY)
-            // else if(from.X<newX && from.Y===newY) spinVertX(newY)
+            if(from.X>newX && from.Y===newY) spinVertX(newY)
+            else if(from.X<newX && from.Y===newY) spinVertX(newY)
     
-            // if(from.Y>newY && from.X===newX) spinVertZ(newX)
-            // else if(from.Y<newY && from.X===newX) spinVertZ(newX)
+            if(from.Y>newY && from.X===newX) spinVertZ(newX)
+            else if(from.Y<newY && from.X===newX) spinVertZ(newX)
           }
           else if((className==='left' || className==='right')){
             if(newX===from.X) spinVertX(newX)
@@ -568,6 +526,11 @@ export default class App extends Component{
         }
       }
     }
+    const onEnter=(e)=>{
+      const touch=e.touches[0];
+      const {clientX,clientY}=touch;
+      this.setState({touch:{X:clientX, Y:clientY}})
+    }
     return(
       <div id="App" style={styles.App}
       onMouseDown={clickBackground} onMouseMove={moveCube} onMouseUp={()=>{this.setState({clicked:false})}}
@@ -576,17 +539,9 @@ export default class App extends Component{
         <CTXprov.Provider value={{colors,spinHoriz,spinVertX,spinVertZ}}>
           <div
             id="fullCube"
-            // ref={cubeRef}
             style={styles.fullCube}
             onMouseDown={clickCube} onMouseUp={gestSpin}
-            // onTouchStart={clickCube} onTouchEnd={gestSpin}
-            onTouchStart={clickCube}
-            onTouchMove={(e)=>{
-              const touch=e.touches[0];
-              this.setState({touch:{X:touch.clientX, Y:touch.clientY}})
-            }}
-            
-            onTouchEnd={gestSpin}
+            onTouchStart={clickCube} onTouchMove={onEnter} onTouchEnd={gestSpin}
             >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
