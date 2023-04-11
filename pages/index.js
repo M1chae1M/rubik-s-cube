@@ -535,11 +535,14 @@ export default class App extends Component{
       if(target.id==='side'){
 
 
-        let newX=parseInt(target?.getAttribute('x'));
-        let newY=parseInt(target?.getAttribute('y'));
 
         if(from.side===className){
+          const newX=parseInt(target?.getAttribute('x'));
+          const newY=parseInt(target?.getAttribute('y'));
+  
           if(className==='top' || className==='bot'){
+
+            console.log(`${newX} ${newY}`);
 
             if(from.X>newX && from.Y===newY) spinVertX(newY)
             else if(from.X<newX && from.Y===newY) spinVertX(newY)
@@ -568,8 +571,14 @@ export default class App extends Component{
             id="fullCube"
             style={styles.fullCube}
             onMouseDown={clickCube} onMouseUp={gestSpin}
-            onTouchStart={clickCube} onTouchEnd={gestSpin}
-          >
+            // onTouchStart={clickCube} onTouchEnd={gestSpin}
+            // onClick={clickCube}
+            // onTouchMove={(e)=>{
+            //   console.log(e.touches)
+            // }}
+            
+            // onTouchEnd={gestSpin}
+            >
             {moved.map((x,i)=>moved.map((y,idx)=>{return(<Fragment key={`${idx}${i}`}>
               <Side name="top" turnX={90} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.top.true}</Side>
               <Side name="front" turnX={0} turnY={0} X={x} Y={y} idx={idx} i={i}>{cubeState.front.true}</Side>
