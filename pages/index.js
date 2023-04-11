@@ -520,26 +520,11 @@ export default class App extends Component{
       const {target}=e;
      
       if(target.id==='side'){
-        if(target.className==='top' || target.className==='bot'){
-          // console.log(target.className);
       
-          const newX=parseInt(target.getAttribute('x'));
-          const newY=parseInt(target.getAttribute('y'));
-  
-          // console.log(newX);
-          // console.log(newY);
-  
-          this.setState({from:{X:newX,Y:newY}});
-        }
+        const newX=parseInt(target.getAttribute('x'));
+        const newY=parseInt(target.getAttribute('y'));
 
-
-
-        else if(target.className!=='top' || target.className!=='bot'){
-          const newX=parseInt(target.getAttribute('x'));
-          const newY=parseInt(target.getAttribute('y'));
-  
-          this.setState({from:{X:newX,Y:newY}});
-        }
+        this.setState({from:{X:newX,Y:newY,side:target.className}});
       }
     }
     const gestSpin=(e)=>{
@@ -548,7 +533,7 @@ export default class App extends Component{
         const newX=parseInt(target.getAttribute('x'));
         const newY=parseInt(target.getAttribute('y'));
         
-        if(target.className==='top' || target.className==='bot'){
+        if((target.className==='top' || target.className==='bot')&&from.side===target.className){
 
           if(from?.X>newX && from.Y===newY) spinVertX(newY)
           else if(from?.X<newX && from.Y===newY) spinVertX(newY)
@@ -556,16 +541,13 @@ export default class App extends Component{
           if(from.Y>newY && from.X===newX) spinVertZ(newX)
           else if(from.Y<newY && from.X===newX) spinVertZ(newX)
         }
-        else if(target.className!=='top' && target.className!=='bot'){
-          console.log(`${from?.X} ${from?.Y}`)
-          console.log(`${newX} ${newY}`)
+        else if(target.className!=='top' && target.className!=='bot' && from.side===target.className){
+          // console.log(`${from?.X} ${from?.Y}`)
+          // console.log(`${newX} ${newY}`)
 
-          if(newY===from.Y){
-            spinHoriz(newY)
-          }
-          else if(newX===from.X){
-            spinVertX(newX)
-          }
+          if(newY===from.Y) spinHoriz(newY)
+          else if(newX===from.X) spinVertX(newX)
+          
         }
       }
       
