@@ -10,10 +10,7 @@ export default class App extends Component{
   state={
     mixed:false,
     turnX:-45,
-    turnX:135,
     turnY:45,
-    turnY:-45,
-    turnY:-135,
     cubeState:cubePos,
     canMix:true,
     clicked:false,
@@ -142,7 +139,7 @@ export default class App extends Component{
           const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
 
-          editTrans(name,o1,o2,o3);
+          // editTrans(name,o1,o2,o3);
           switch(name){
             case 'left':{
               addStyles(o1,`rotateY(-90deg)`);
@@ -157,9 +154,15 @@ export default class App extends Component{
               break;
             }
             case 'front':{
-              newStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
-              newStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
-              newStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
+              // newStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
+              // newStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
+              // newStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
+
+              addStyles(o1,`rotateY(-90deg)`);
+              queryName[o2].style.transformOrigin=`25px 25px -75px`;
+              addStyles(o2,`rotateY(-90deg)`);
+              queryName[o3].style.transformOrigin=`-25px -25px -75px`;
+              addStyles(o3,`rotateY(-90deg)`);
               break;
             }
             case 'back':{
