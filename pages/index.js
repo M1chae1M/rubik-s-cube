@@ -10,8 +10,10 @@ export default class App extends Component{
   state={
     mixed:false,
     turnX:-45,
+    turnX:135,
     turnY:45,
-    turnY:225,
+    turnY:-45,
+    turnY:-135,
     cubeState:cubePos,
     canMix:true,
     clicked:false,
@@ -97,17 +99,21 @@ export default class App extends Component{
       const queryName=document?.querySelectorAll(`.${name}`);
       const oldTransition=queryName[o1].style.transition;
       const copyStyles=(obj)=>{return queryName[obj].style.transform};
-      const copied=[];
-      [o1,o2,o3]?.map(x=>copied.push(copyStyles(x)));
+      const copied={
+        o1:copyStyles(o1),
+        o2:copyStyles(o2),
+        o3:copyStyles(o3),
+      }
 
       setTimeout(()=>{
-        [o1,o2,o3]?.map(x=>queryName[x].style.transition='none');
+        [o1,o2,o3].map(x=>queryName[x].style.transition='none');
 
-        [o1,o2,o3]?.map((x,i)=>queryName[x].style.transform=copied?.[i]);
+        queryName[o1].style.transform=copied.o1;
+        queryName[o2].style.transform=copied.o2;
+        queryName[o3].style.transform=copied.o3;
 
         setTimeout(()=>{
-          [o1,o2,o3]?.map(x=>queryName[x].style.transition=oldTransition);
-          // // [o1,o2,o3]?.map(x=>queryName[x].style.transition='-75px -75px -150px');
+          [o1,o2,o3].map(x=>queryName[x].style.transition=oldTransition);
         },100);
       },speed);
     }
@@ -136,16 +142,12 @@ export default class App extends Component{
           const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
 
-          // editTrans(name,o1,o2,o3);
+          editTrans(name,o1,o2,o3);
           switch(name){
             case 'left':{
-              // editTrans(name,o1,o2,o3);
-              // wallEditTrans(name);
               addStyles(o1,`rotateY(-90deg)`);
-              queryName[o2].style.transformOrigin=`50px 50px -100px`;
-              addStyles(o2,`rotateY(-90deg)`);
-              queryName[o3].style.transformOrigin=`25px 25px -125px`;
-              addStyles(o3,`rotateY(-90deg)`);
+              addStyles(o2,`rotateY(-90deg) translateX(50px) translateZ(50px)`);
+              addStyles(o3,`rotateY(-90deg) translateX(100px) translateZ(100px)`);
               break;
             }
             case 'right':{
@@ -155,21 +157,15 @@ export default class App extends Component{
               break;
             }
             case 'front':{
-              editTrans(name,o1,o2,o3);
-              // wallEditTrans(name);
-              addStyles(o1,`rotateY(-90deg)`);
-              queryName[o2].style.transformOrigin=`25px 25px -75px`;
-              addStyles(o2,`rotateY(-90deg)`);
-              queryName[o3].style.transformOrigin=`-25px -25px -75px`;
-              addStyles(o3,`rotateY(-90deg)`);
+              newStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
+              newStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
+              newStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
               break;
             }
             case 'back':{
-              addStyles(o1,`rotateY(-90deg)`);
-              queryName[o2].style.transformOrigin=`75px 75px -125px`;
-              addStyles(o2,`rotateY(-90deg)`);
-              queryName[o3].style.transformOrigin=`75px 75px -175px`;
-              addStyles(o3,`rotateY(-90deg)`);
+              newStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
+              newStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
+              newStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
               break;
             }
             case 'top':{
