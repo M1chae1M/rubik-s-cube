@@ -115,6 +115,40 @@ export default class App extends Component{
         },100);
       },speed);
     }
+    const wallEditTrans=(name)=>{
+      const queryName=document?.querySelectorAll(`.${name}`);
+
+      const oldTransition=queryName[0].style.transition;
+      const copyStyles=(obj)=>{return queryName[obj].style.transform};
+      const copied={
+        o1:copyStyles(0),
+        o2:copyStyles(1),
+        o3:copyStyles(2),
+        o4:copyStyles(3),
+        o5:copyStyles(4),
+        o6:copyStyles(5),
+        o7:copyStyles(6),
+        o8:copyStyles(7),
+        o9:copyStyles(8),
+      }
+      setTimeout(()=>{
+        [0,1,2,3,4,5,6,7,8].map(x=>queryName[x].style.transition='none');
+
+        queryName[0].style.transform=copied.o1;
+        queryName[1].style.transform=copied.o2;
+        queryName[2].style.transform=copied.o3;
+        queryName[3].style.transform=copied.o4;
+        queryName[4].style.transform=copied.o5;
+        queryName[5].style.transform=copied.o6;
+        queryName[6].style.transform=copied.o7;
+        queryName[7].style.transform=copied.o8;
+        queryName[8].style.transform=copied.o9;
+
+        setTimeout(()=>{
+          [0,1,2,3,4,5,6,7,8].map(x=>queryName[x].style.transition=oldTransition);
+        },100);
+      },speed);
+    }
     const spinHoriz=(row)=>{
       const animate=(row)=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
@@ -402,49 +436,15 @@ export default class App extends Component{
               break;
             }
             case 'right':{
-            
-              const oldTransition=queryName[0].style.transition;
-              const copyStyles=(obj)=>{return queryName[obj].style.transform};
-              const copied={
-                o1:copyStyles(0),
-                o2:copyStyles(1),
-                o3:copyStyles(2),
-                o4:copyStyles(3),
-                o5:copyStyles(4),
-                o6:copyStyles(5),
-                o7:copyStyles(6),
-                o8:copyStyles(7),
-                o9:copyStyles(8),
-              }
-              setTimeout(()=>{
-                [0,1,2,3,4,5,6,7,8].map(x=>queryName[x].style.transition='none');
-        
-                queryName[0].style.transform=copied.o1;
-                queryName[1].style.transform=copied.o2;
-                queryName[2].style.transform=copied.o3;
-                queryName[3].style.transform=copied.o4;
-                queryName[4].style.transform=copied.o5;
-                queryName[5].style.transform=copied.o6;
-                queryName[6].style.transform=copied.o7;
-                queryName[7].style.transform=copied.o8;
-                queryName[8].style.transform=copied.o9;
-        
-                setTimeout(()=>{
-                  [0,1,2,3,4,5,6,7,8].map(x=>queryName[x].style.transition=oldTransition);
-                },100);
-              },speed);
-
+              wallEditTrans(name);
               queryName[0].style.transform+=`translateY(100px)`
               queryName[1].style.transform+=`translateY(50px) translateX(50px)`
               queryName[2].style.transform+=`translateX(100px)`
-
               queryName[3].style.transform+=`translateX(-50px) translateY(50px)`
               queryName[5].style.transform+=`translateX(50px) translateY(-50px)`
               queryName[6].style.transform+=`translateX(-100px)`
               queryName[7].style.transform+=`translateY(-50px) translateX(-50px)`
               queryName[8].style.transform+=`translateY(-100px)`
-              
-
               break;
             }
           }
