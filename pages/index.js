@@ -273,7 +273,6 @@ export default class App extends Component{
             }
             case 'front':{
               wallEditTrans(name);
-
               queryName[0].style.transform=`translateX(100px)`;
               queryName[1].style.transform=`translateY(0px) translateX(50px)`;
               queryName[2].style.transform=`translateY(0px)`;
@@ -394,6 +393,7 @@ export default class App extends Component{
           const queryName=document?.querySelectorAll(`.${name}`);
           const getTransform=(obj)=>{return queryName[obj].style.transform};
           const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
+          const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
           const rotateXcopy={
             o1:getTransform(o1).split(' '),
             o2:getTransform(o2).split(' '),
@@ -438,14 +438,23 @@ export default class App extends Component{
             }
             case 'right':{
               wallEditTrans(name);
-              queryName[0].style.transform=`translateY(100px)`
-              queryName[1].style.transform=`translateY(50px) translateX(50px)`
-              queryName[2].style.transform=`translateX(100px)`
-              queryName[3].style.transform=`translateX(-50px) translateY(50px)`
-              queryName[5].style.transform=`translateX(50px) translateY(-50px)`
-              queryName[6].style.transform=`translateX(-100px)`
-              queryName[7].style.transform=`translateY(-50px) translateX(-50px)`
-              queryName[8].style.transform=`translateY(-100px)`
+              // queryName[0].style.transform+=`translateY(100px)`
+              // queryName[1].style.transform+=`translateY(50px) translateX(50px)`
+              // queryName[2].style.transform+=`translateX(100px)`
+              // queryName[3].style.transform+=`translateX(-50px) translateY(50px)`
+              // queryName[5].style.transform+=`translateX(50px) translateY(-50px)`
+              // queryName[6].style.transform+=`translateX(-100px)`
+              // queryName[7].style.transform+=`translateY(-50px) translateX(-50px)`
+              // queryName[8].style.transform+=`translateY(-100px)`
+
+              addStyles(0,`translateY(100px)`)
+              addStyles(1,`translateY(50px) translateX(50px)`);
+              addStyles(2,`translateX(100px)`);
+              addStyles(3,`translateX(-50px) translateY(50px)`);
+              addStyles(5,`translateX(50px) translateY(-50px)`);
+              addStyles(6,`translateX(-100px)`);
+              addStyles(7,`translateY(-50px) translateX(-50px)`);
+              addStyles(8,`translateY(-100px)`);
               break;
             }
           }
