@@ -12,6 +12,7 @@ export default class App extends Component{
     turnX:-45,
     turnY:45,
     turnY:-45,
+    turnY:-135,
     cubeState:cubePos,
     canMix:true,
     clicked:false,
@@ -281,24 +282,21 @@ export default class App extends Component{
               queryName[6].style.transform=`translateX(100px) translateY(100px)`;
               queryName[7].style.transform=`translateX(50px) translateY(100px)`;
               queryName[8].style.transform=`translateX(0px) translateY(100px)`;
-
-              // addStyles(0,`translateX(-50px)`);
-              // addStyles(1,`translateX(-50px)`);
-              // queryName[0].style.transform+=`translateX(50px)`;
-              // queryName[1].style.transform+=`translateX(0px)`;
-              // queryName[2].style.transform=`translateY(0px)`;
-              // queryName[3].style.transform=`translateX(100px) translateY(50px)`;
-              // queryName[5].style.transform=`translateX(0px) translateY(50px)`;
-              // queryName[6].style.transform=`translateX(100px) translateY(100px)`;
-              // queryName[7].style.transform=`translateX(50px) translateY(100px)`;
-              // queryName[8].style.transform=`translateX(0px) translateY(100px)`;
-              
               break;
             }
             case 'back':{
-              addStyles(o1,`rotate(-90deg) translateY(${-move}px) translateX(${0+move}px)`);
-              addStyles(o2,`rotate(-90deg) translateY(${50-move}px) translateX(${50+move}px)`);
-              addStyles(o3,`rotate(-90deg) translateY(${100-move}px) translateX(${100+move}px)`);
+              // addStyles(o1,`rotate(-90deg) translateY(${-move}px) translateX(${0+move}px)`);
+              // addStyles(o2,`rotate(-90deg) translateY(${50-move}px) translateX(${50+move}px)`);
+              // addStyles(o3,`rotate(-90deg) translateY(${100-move}px) translateX(${100+move}px)`);
+              wallEditTrans(name);
+              addStyles(0,`translateY(100px)`);
+              addStyles(1,`translateY(50px) translateX(50px)`);
+              addStyles(2,`translateX(100px)`);
+              addStyles(3,`translateY(50px) translateX(-50px)`);
+              addStyles(5,`translateY(-50px) translateX(50px)`);
+              addStyles(6,`translateX(-100px)`);
+              addStyles(7,`translateX(-50px) translateY(-50px)`);
+              addStyles(8,`translateY(-100px)`);
               break;
             }
           }
@@ -310,8 +308,8 @@ export default class App extends Component{
           coreAnimation('left',0,0,1,2);
           coreAnimation('bot',0,2,5,8);
           coreAnimation('back',0,0,1,2);
-          coreAnimation('back',50,3,4,5);
-          coreAnimation('back',100,6,7,8);
+          // coreAnimation('back',50,3,4,5);
+          // coreAnimation('back',100,6,7,8);
         }
         else if(column===1){
           coreAnimation('top',-50,1,4,7);
