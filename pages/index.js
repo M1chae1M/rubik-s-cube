@@ -181,11 +181,6 @@ export default class App extends Component{
               break;
             }
             case 'bot':{
-              // newStyles(o1,`rotate(-90deg) rotateY(-90deg) translateX(${move}px)`);
-              // newStyles(o2,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
-              // newStyles(o3,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
-
-
               wallEditTrans(name);
               addStyles(0,`translateY(100px)`);
               addStyles(1,`translateY(50px) translateX(50px)`);
@@ -195,8 +190,6 @@ export default class App extends Component{
               addStyles(6,`translateX(-100px)`);
               addStyles(7,`translateX(-50px) translateY(-50px)`);
               addStyles(8,`translateY(-100px)`);
-
-
               break;
             }
           }
@@ -208,8 +201,6 @@ export default class App extends Component{
           coreAnimation('front',0,0,3,6);
           coreAnimation('back',0,0,3,6);
           coreAnimation('top',0,0,1,2);
-          // coreAnimation('top',50,3,4,5);
-          // coreAnimation('top',100,6,7,8);
         }
         else if(row===1){
           coreAnimation('left',50,1,4,7);
@@ -223,8 +214,6 @@ export default class App extends Component{
           coreAnimation('front',100,2,5,8);
           coreAnimation('back',100,2,5,8);
           coreAnimation('bot',0,0,1,2);
-          // coreAnimation('bot',50,3,4,5);
-          // coreAnimation('bot',100,6,7,8);
         }
       }
       if(this.state.canMix){
