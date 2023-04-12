@@ -138,8 +138,8 @@ export default class App extends Component{
       const animate=(row)=>{
         const coreAnimation=(name,move,o1,o2,o3)=>{
           const queryName=document?.querySelectorAll(`.${name}`);
+          const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
-          const changeStyles=(obj,styles)=>queryName[obj].style.transform=styles;
 
           editTrans(name,o1,o2,o3);
           switch(name){
@@ -156,27 +156,43 @@ export default class App extends Component{
               break;
             }
             case 'front':{
-              changeStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
-              changeStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
-              changeStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
+              newStyles(o1,`rotateY(-90deg) translateY(${move}px)`);
+              newStyles(o2,`rotateY(-90deg) translateY(${move}px) translateX(50px)`);
+              newStyles(o3,`rotateY(-90deg) translateY(${move}px) translateX(100px)`);
               break;
             }
             case 'back':{
-              changeStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
-              changeStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
-              changeStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
+              newStyles(o1,`rotateY(-270deg) translateY(${move}px)`);
+              newStyles(o2,`rotateY(-270deg) translateY(${move}px) translateX(50px)`);
+              newStyles(o3,`rotateY(-270deg) translateY(${move}px) translateX(100px)`);
               break;
             }
             case 'top':{
-              changeStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
-              changeStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
-              changeStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              wallEditTrans(name);
+
+              // newStyles(o1,`rotate(90deg) rotateY(-90deg) translateX(${move}px)`);
+              // newStyles(o2,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              // newStyles(o3,`rotate(90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              // addStyles(0,`translateX(50px)`)
+              // addStyles(3,`translateX(-50px)`)
+              // addStyles(6,`translateX(-50px)`)
+
+              // newStyles(0,`translateX(0px)`)
+
+              addStyles(0,`translateX(100px)`);
+              addStyles(1,`translateX(50px) translateY(-50px)`);
+              addStyles(2,`translateY(-100px)`);
+              addStyles(3,`translateY(50px) translateX(50px)`);
+              addStyles(5,`translateY(-50px) translateX(-50px)`);
+              addStyles(6,`translateY(100px)`);
+              addStyles(7,`translateY(50px) translateX(-50px)`);
+              addStyles(8,`translateX(-100px)`);
               break;
             }
             case 'bot':{
-              changeStyles(o1,`rotate(-90deg) rotateY(-90deg) translateX(${move}px)`);
-              changeStyles(o2,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
-              changeStyles(o3,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
+              newStyles(o1,`rotate(-90deg) rotateY(-90deg) translateX(${move}px)`);
+              newStyles(o2,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(50px)`);
+              newStyles(o3,`rotate(-90deg) rotateY(-90deg) translateX(${move}px) translateY(100px)`);
               break;
             }
           }
@@ -188,8 +204,8 @@ export default class App extends Component{
           coreAnimation('front',0,0,3,6);
           coreAnimation('back',0,0,3,6);
           coreAnimation('top',0,0,1,2);
-          coreAnimation('top',50,3,4,5);
-          coreAnimation('top',100,6,7,8);
+          // coreAnimation('top',50,3,4,5);
+          // coreAnimation('top',100,6,7,8);
         }
         else if(row===1){
           coreAnimation('left',50,1,4,7);
