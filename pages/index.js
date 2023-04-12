@@ -3,8 +3,8 @@ import Side from "./Side";
 import {cubePos,colors} from "./_document";
 
 export const CTXprov=React.createContext();
-// export const speed=120;
-export const speed=700;
+export const speed=120;
+// export const speed=700;
 
 export default class App extends Component{
   state={
