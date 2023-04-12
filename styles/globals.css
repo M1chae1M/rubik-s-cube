@@ -5,4 +5,5 @@ touch-action: none;
 }
 #side{
   border:solid rgb(255, 255, 0) 1.5px;
+  border-radius:8px;
 }
