@@ -284,9 +284,6 @@ export default class App extends Component{
               break;
             }
             case 'back':{
-              // addStyles(o1,`rotate(-90deg) translateY(${-move}px) translateX(${0+move}px)`);
-              // addStyles(o2,`rotate(-90deg) translateY(${50-move}px) translateX(${50+move}px)`);
-              // addStyles(o3,`rotate(-90deg) translateY(${100-move}px) translateX(${100+move}px)`);
               wallEditTrans(name);
               addStyles(0,`translateY(100px)`);
               addStyles(1,`translateY(50px) translateX(50px)`);
@@ -307,8 +304,6 @@ export default class App extends Component{
           coreAnimation('left',0,0,1,2);
           coreAnimation('bot',0,2,5,8);
           coreAnimation('back',0,0,1,2);
-          // coreAnimation('back',50,3,4,5);
-          // coreAnimation('back',100,6,7,8);
         }
         else if(column===1){
           coreAnimation('top',-50,1,4,7);
@@ -322,8 +317,6 @@ export default class App extends Component{
           coreAnimation('left',0,6,7,8);
           coreAnimation('bot',0,0,3,6);
           coreAnimation('front',0,0,1,2);
-          // coreAnimation('front',50,3,4,5);
-          // coreAnimation('front',100,6,7,8);
         }
       }
       if(this.state.canMix){
@@ -438,15 +431,6 @@ export default class App extends Component{
             }
             case 'right':{
               wallEditTrans(name);
-              // queryName[0].style.transform+=`translateY(100px)`
-              // queryName[1].style.transform+=`translateY(50px) translateX(50px)`
-              // queryName[2].style.transform+=`translateX(100px)`
-              // queryName[3].style.transform+=`translateX(-50px) translateY(50px)`
-              // queryName[5].style.transform+=`translateX(50px) translateY(-50px)`
-              // queryName[6].style.transform+=`translateX(-100px)`
-              // queryName[7].style.transform+=`translateY(-50px) translateX(-50px)`
-              // queryName[8].style.transform+=`translateY(-100px)`
-
               addStyles(0,`translateY(100px)`)
               addStyles(1,`translateY(50px) translateX(50px)`);
               addStyles(2,`translateX(100px)`);
@@ -480,13 +464,7 @@ export default class App extends Component{
           coreAnimation('bot',100,6,7,8);
           coreAnimation('front',100,6,7,8);
           coreAnimation('back',0,0,1,2);
-          // coreAnimation('right',0,0,1,2);
-          // coreAnimation('right',50,3,4,5);
-          // coreAnimation('right',100,6,7,8);
-
           coreAnimation('right',0,0,1,2);
-          // coreAnimation('right',50,3,4,5)
-          // coreAnimation('right',100,6,7,8);
         }
       }
       if(this.state.canMix){
