@@ -97,21 +97,17 @@ export default class App extends Component{
       const queryName=document?.querySelectorAll(`.${name}`);
       const oldTransition=queryName[o1].style.transition;
       const copyStyles=(obj)=>{return queryName[obj].style.transform};
-      const copied={
-        o1:copyStyles(o1),
-        o2:copyStyles(o2),
-        o3:copyStyles(o3),
-      }
+      const copied=[];
+      [o1,o2,o3]?.map(x=>copied.push(copyStyles(x)));
 
       setTimeout(()=>{
-        [o1,o2,o3].map(x=>queryName[x].style.transition='none');
+        [o1,o2,o3]?.map(x=>queryName[x].style.transition='none');
 
-        queryName[o1].style.transform=copied.o1;
-        queryName[o2].style.transform=copied.o2;
-        queryName[o3].style.transform=copied.o3;
+        [o1,o2,o3]?.map((x,i)=>queryName[x].style.transform=copied?.[i]);
 
         setTimeout(()=>{
-          [o1,o2,o3].map(x=>queryName[x].style.transition=oldTransition);
+          [o1,o2,o3]?.map(x=>queryName[x].style.transition=oldTransition);
+          // // [o1,o2,o3]?.map(x=>queryName[x].style.transition='-75px -75px -150px');
         },100);
       },speed);
     }
@@ -140,9 +136,11 @@ export default class App extends Component{
           const newStyles=(obj,styles)=>queryName[obj].style.transform=styles;
           const addStyles=(obj,styles)=>queryName[obj].style.transform+=styles;
 
-          editTrans(name,o1,o2,o3);
+          // editTrans(name,o1,o2,o3);
           switch(name){
             case 'left':{
+              // editTrans(name,o1,o2,o3);
+              // wallEditTrans(name);
               addStyles(o1,`rotateY(-90deg)`);
               queryName[o2].style.transformOrigin=`50px 50px -100px`;
               addStyles(o2,`rotateY(-90deg)`);
@@ -157,6 +155,8 @@ export default class App extends Component{
               break;
             }
             case 'front':{
+              editTrans(name,o1,o2,o3);
+              // wallEditTrans(name);
               addStyles(o1,`rotateY(-90deg)`);
               queryName[o2].style.transformOrigin=`25px 25px -75px`;
               addStyles(o2,`rotateY(-90deg)`);
